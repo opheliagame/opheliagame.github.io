@@ -1,121 +1,217 @@
-const CleanCSS = require("clean-css")
-const htmlmin = require("html-minifier")
-const svgContents = require("eleventy-plugin-svg-contents")
-const Image = require('@11ty/eleventy-img')
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const markdownIt = require('markdown-it')
-const markdownItClass = require('@toycode/markdown-it-class')
-const mila = require('markdown-it-link-attributes')
-const fs = require('fs')
-const dir = '_site'
+const slugify = require("@sindresorhus/slugify");
+const markdownIt = require("markdown-it");
+const fs = require('fs');
+const matter = require('gray-matter');
+const faviconPlugin = require('eleventy-favicon');
+const tocPlugin = require('eleventy-plugin-toc');
 
-async function imageShortcode(src, alt, sizes) {
-  let metadata = await Image(src, {
-    widths: [300, 600],
-    formats: ["avif", "jpeg"],
-    urlPath: "/assets/img/",
-    outputDir: `./${dir}/assets/img/`
-  });
+const {headerToId, namedHeadingsFilter} = require("./src/helpers/utils") 
 
-  let imageAttributes = {
-    alt,
-    sizes,
-    loading: "lazy",
-    decoding: "async",
-  };
+module.exports = function(eleventyConfig) {
 
-  // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
-  return Image.generateHTML(metadata, imageAttributes);
-}
+    let markdownLib = markdownIt({
+            breaks: true,
+            html: true
+        })
+        .use(require("markdown-it-footnote"))
+        .use(require("markdown-it-attrs"))
+        .use(require("markdown-it-hashtag"),{
+            hashtagRegExp: `[^\\s!@#$%^&*()=+.\/,\[{\\]};:'"?><]+`
+        })
+        .use(function(md){
+            md.renderer.rules.hashtag_open  = function(tokens, idx) {
+                return '<a class="tag" onclick="toggleTagSearch(this)">'
+            }
+        })
+        .use(require('markdown-it-mathjax3'), {
+            tex: {
+                inlineMath: [
+                    ["$", "$"]
+                ]
+            },
+            options: {
+                skipHtmlTags: { '[-]': ['pre'] }
+            }
+        })
+        .use(require('markdown-it-task-checkbox'), {
+            disabled: true,
+            divWrap: false,
+            divClass: 'checkbox',
+            idPrefix: 'cbx_',
+            ulClass: 'task-list',
+            liClass: 'task-list-item'
+        })
+        .use(require('markdown-it-plantuml'), {
+            openMarker: '```plantuml',
+            closeMarker: '```'
+        })
+        .use(namedHeadingsFilter)
+        .use(function(md) {
+            //https://github.com/DCsunset/markdown-it-mermaid-plugin
+            const origFenceRule = md.renderer.rules.fence || function(tokens, idx, options, env, self) {
+                return self.renderToken(tokens, idx, options, env, self);
+            };
+            md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+                const token = tokens[idx];
+                if (token.info === 'mermaid') {
+                    const code = token.content.trim();
+                    return `<pre class="mermaid">${code}</pre>`;
+                }
+                if (token.info === 'transclusion') {
+                    const code = token.content.trim();
+                    return `<div class="transclusion">${md.render(code)}</div>`;
+                }
+                if (token.info.startsWith("ad-")) {
+                    const code = token.content.trim();
+                    if (code && code.toLowerCase().startsWith("title:")) {
+                        const title = code.substring(6, code.indexOf("\n"));
+                        const titleDiv = title ? `<div class="admonition-title">${title}</div>` : '';
+                        return `<div class="language-${token.info} admonition admonition-example admonition-plugin">${titleDiv}${md.render(code.slice(code.indexOf("\n")))}</div>`;
+                    }
 
-module.exports = function (eleventyConfig) {
+                    const title = `<div class="admonition-title">${token.info.charAt(3).toUpperCase()}${token.info.substring(4).toLowerCase()}</div>`;
+                    return `<div class="language-${token.info} admonition admonition-example admonition-plugin">${title}${md.render(code)}</div>`;
 
-  eleventyConfig.addPassthroughCopy("src/assets/js")
-  eleventyConfig.addPassthroughCopy("src/assets/img")
-  eleventyConfig.addPassthroughCopy("src/assets/css/extra.css")
-    
+                }
 
-  eleventyConfig.setBrowserSyncConfig({
-    callbacks: {
-      ready: function(err, bs) {
+                // Other languages
+                return origFenceRule(tokens, idx, options, env, slf);
+            };
 
-        bs.addMiddleware("*", (req, res) => {
-          const content_404 = fs.readFileSync(`${dir}/404.html`);
-          // Add 404 http status code in request header.
-          res.writeHead(404, { "Content-Type": "text/html; charset=UTF-8" });
-          // Provides the 404 content without redirect.
-          res.write(content_404);
-          res.end();
+
+
+            const defaultImageRule = md.renderer.rules.image || function(tokens, idx, options, env, self) {
+                return self.renderToken(tokens, idx, options, env, self);
+            };
+            md.renderer.rules.image = (tokens, idx, options, env, self) => {
+                const imageName = tokens[idx].content;
+                const [fileName, width] = imageName.split("|");
+                if (width) {
+                    const widthIndex = tokens[idx].attrIndex('width');
+                    const widthAttr = `${width}px`;
+                    if (widthIndex < 0) {
+                        tokens[idx].attrPush(['width', widthAttr]);
+                    } else {
+                        tokens[idx].attrs[widthIndex][1] = widthAttr;
+                    }
+                }
+
+                return defaultImageRule(tokens, idx, options, env, self);
+            };
+
+
+            const defaultLinkRule = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
+                return self.renderToken(tokens, idx, options, env, self);
+            };
+            md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
+                const aIndex = tokens[idx].attrIndex('target');
+                const classIndex = tokens[idx].attrIndex('class');
+
+                if (aIndex < 0) {
+                    tokens[idx].attrPush(['target', '_blank']);
+                } else {
+                    tokens[idx].attrs[aIndex][1] = '_blank';
+                }
+
+                if (classIndex < 0) {
+                    tokens[idx].attrPush(['class', 'external-link']);
+                } else {
+                    tokens[idx].attrs[classIndex][1] = 'external-link';
+                }
+
+                return defaultLinkRule(tokens, idx, options, env, self);
+            };
+
         });
-      }
-    }
-  })
 
-  // const result = require("./src/_data/myGithub")();
-  // result.then(data => {
-  //   const tags = data.tags;
-      
-  //   tags.map((tag) => {
-  //     const name = tag.toString().toLowerCase()
-  //     eleventyConfig.addCollection(name, (collection) => {
-  //       return data.repos.filter(repo => repo.data.tags.includes(tag));
-  //     });
-  //   })
-  // })
-  
-  eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
-    // Eleventy 1.0+: use this.inputPath and this.outputPath instead
-    if (outputPath.endsWith(".html")) {
-      let minified = htmlmin.minify(content, {
-        useShortDoctype: true,
-        removeComments: true,
-        collapseWhitespace: true
-      })
-      return minified
-    }
-    return content
-  })
+    eleventyConfig.setLibrary("md", markdownLib);
 
-  eleventyConfig.addFilter("cssmin", function(code) {
-    return new CleanCSS({}).minify(code).styles
-  })
+    eleventyConfig.addFilter('link', function(str) {
+        return str && str.replace(/\[\[(.*?\|.*?)\]\]/g, function(match, p1) {
+            //Check if it is an embedded excalidraw drawing or mathjax javascript
+            if (p1.indexOf("],[") > -1 || p1.indexOf('"$"') > -1) {
+                return match;
+            }
+            const [fileLink, linkTitle] = p1.split("|");
 
-  eleventyConfig.addPlugin(svgContents)
-  eleventyConfig.addPlugin(syntaxHighlight)
+            let fileName = fileLink;
+            let header = "";
+            let headerLinkPath = "";
+            if (fileLink.includes("#")) {
+                [fileName, header] = fileLink.split("#");
+                headerLinkPath = `#${headerToId(header)}`;
+            }
 
-  eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
-  eleventyConfig.addLiquidShortcode("image", imageShortcode);
-  eleventyConfig.addJavaScriptFunction("image", imageShortcode);
+            let permalink = `/notes/${slugify(fileName)}`;
+            const title = linkTitle ? linkTitle : fileName;
+            let deadLink = false;
 
-  const mapping = {
-    ul: ['markdown-list', 'list-inside', 'ml-2', 'self-start'],
-    p: ['py-2'],
-    h2: ['text-lg'],
-    h3: ['text-lg', 'font-semibold'],
-  }
+            try {
+                const startPath = './src/site/notes/';
+                const fullPath = fileName.endsWith('.md') ? 
+                    `${startPath}${fileName}`
+                    :`${startPath}${fileName}.md`;
+                const file = fs.readFileSync(fullPath, 'utf8');
+                const frontMatter = matter(file);
+                if (frontMatter.data.permalink) {
+                    permalink = frontMatter.data.permalink;
+                }
+            } catch {
+                deadLink = true;
+            }
 
-  const milaOptions = {
-    attrs: {
-      class: "link-primary",
-      target: "_blank",
-      rel: "noopener noreferrer"
-    }
-  }
-  const md = markdownIt({linkify: true, html: true})
-  md.use(mila, milaOptions)
-  md.use(markdownItClass, mapping)
-  eleventyConfig.setLibrary('md', md)
+            return `<a class="internal-link ${deadLink?'is-unresolved':''}" href="${permalink}${headerLinkPath}">${title}</a>`;
+        });
+    })
 
-  eleventyConfig.addWatchTarget('./tailwind.config.js')
-  eleventyConfig.addWatchTarget('./src/assets/css/tailwind.css')
-  
-  return {
-    dir: {
-      input: 'src',
-      includes: '_includes',
-      data: '_data',
-      output: `${dir}`
-    }
-  }
+    eleventyConfig.addFilter('highlight', function(str) {
+        return str && str.replace(/\=\=(.*?)\=\=/g, function(match, p1) {
+            return `<mark>${p1}</mark>`;
+        });
+    });
 
-}
+
+    eleventyConfig.addTransform('callout-block', function(str) {
+        return str && str.replace(/<blockquote>((.|\n)*?)<\/blockquote>/g, function(match, content) {
+            let titleDiv = "";
+            let calloutType = "";
+            const calloutMeta = /\[!(\w*)\](\s?.*)/g;
+            if (!content.match(calloutMeta)) {
+                return match;
+            }
+
+            content = content.replace(calloutMeta, function(metaInfoMatch, callout, title) {
+                calloutType = callout;
+                titleDiv = title.replace("<br>", "") ?
+                    `<div class="admonition-title">${title}</div>` :
+                    `<div class="admonition-title">${callout.charAt(0).toUpperCase()}${callout.substring(1).toLowerCase()}</div>`;
+                return "";
+            });
+
+            return `<div class="callout-${calloutType?.toLowerCase()} admonition admonition-example admonition-plugin">
+                ${titleDiv}
+                ${content}
+            </div>`;
+        });
+    });
+
+    eleventyConfig.addPassthroughCopy("src/site/img");
+    eleventyConfig.addPlugin(faviconPlugin, { destination: 'dist' });
+    eleventyConfig.addPlugin(tocPlugin, {ul:true, tags: ['h1','h2', 'h3', 'h4', 'h5', 'h6']});
+    eleventyConfig.addFilter('jsonify', function (variable) {
+      return JSON.stringify(variable);
+    });
+
+    return {
+        dir: {
+            input: "src/site",
+            output: "dist",
+            data: `_data`
+        },
+        templateFormats: ["njk", "md", "11ty.js", "css"],
+        htmlTemplateEngine: "njk",
+        markdownTemplateEngine: "njk",
+        passthroughFileCopy: true,
+    };
+
+};

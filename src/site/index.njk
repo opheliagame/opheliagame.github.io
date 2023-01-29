@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ noteTitle }}</title>
+    {%include "components/pageheader.njk"%}
+  </head>
+  <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section">
+    {%include "components/notegrowthhistory.njk"%}
+    
+    {% if settings.dgEnableSearch === true %}
+      {%include "components/searchContainer.njk"%}
+    {% endif %}
+    <div>
+      {{ content | link | highlight | safe }}
+    </div>
+
+  </body>
+</html>
