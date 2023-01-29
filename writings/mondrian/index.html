@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Silence</title>
+    <title>Shall we fail at making a Mondrian!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 <script>
@@ -2543,7 +2543,7 @@ cite a:link {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Silence</h1>
+        <h1>Shall we fail at making a Mondrian!</h1>
       
       <div class="header-meta">
         
@@ -2551,33 +2551,120 @@ cite a:link {
             
               
             
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #shader
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #drawing
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #2021
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #july
+                </a>
+              
+            
           </div>
         
       </div>
-      <p>She is the bedsheet I wrap around myself in the morning<br>
-The only voice being the one in my head<br>
-I like to breathe in before I breathe out<br>
-Just be with her before anything else.</p>
-<p>We were first introduced in class<br>
-&quot;Hey, I'm the pin drop&quot;, she said<br>
-I disliked by proxy<br>
-She, who was summoned by the teacher herself.</p>
-<p>Our relationship has grown since<br>
-An increase in understanding reciprocated with peace offerings<br>
-Alone time with her was once like punishment<br>
-Now it feels like self care.</p>
-<p>I'm sure you've seen her too<br>
-Unsure of herself inside a court<br>
-Begrudgingly in the parliament<br>
-Or maybe uninvited in your own house.</p>
-<p>But don't mistake her for being docile like I did<br>
-She has wrapped herself around my neck enough times for me to take note<br>
-Challenging me to muster my sorry words<br>
-Scratching my throat.</p>
-<p>Given that is how it is,<br>
-You say, why would I not wish for her to be gone<br>
-Valid question it would be, if not everyone had their flaws<br>
-More importantly, I'd never want to wake up to the other one.</p>
+      <p>I recently saw a <a href="https://www.youtube.com/watch?v=WDWzY95EEbA&amp;t=64s" target="_blank" class="external-link">documentary</a> about Mondrian and although the images of his paintings in the video were of not the best quality and there is an annoying watermark throughout, dare I say I maybe understood what Mondrian was trying to say. Having recently come across Vasudeo Gaitonde and S H Raza, I have come to appreciate color much more and how the right amount in the right places could really be something. Black and white is evergreen (sorry 😂) but imagine a world without color.</p>
+<h3 id="a-bit-of-history">A bit of history</h3>
+<p>Piet Mondrian, whose father was a drawing teacher and whose mother we don't find much about (but she also probably did something) was introduced to art and painting since a very young age. He also had an uncle with whom he painted often and after getting a degree in Fine Arts became qualified to teach but his career was to become a tad bit bigger than that.</p>
+<p>He was inspired by Cubism and Pablo Picasso and the Paris avant-garde scene at the time and it started reflecting in how he painted. Due to World War I, he was stuck back home, and could not return to Paris, and it was during this time that he met fellow artists, Bart van der Leck and Theo van Doesburg, and with Doesburg started a magazine called De Stijl and in it publishing essays about why he painted the way he painted.</p>
+<p>His thinking was based on his belief in <a href="https://en.wikipedia.org/wiki/Theosophy" target="_blank" class="external-link">Theosophy</a> and in his words, he wanted <a href="https://www.artsy.net/article/matthew-how-mondrian-went-abstract" target="_blank" class="external-link">to articulate a mystic conception of cosmic harmony that lay behind the surfaces of reality.</a></p>
+<p>I am not quite sure what it is about these paintings that interests me but as someone who has been aiming for brevity in the things that I make, I decided to make myself a Mondrian! 🎉</p>
+<h3 id="on-with-it-now">On with it now</h3>
+<p>As always, we will begin with our boilerplate, define our colors, and start with a nice bright red to soothe the eye.</p>
+<pre><code class="language-glsl">#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform float u_time;
+
+#include &quot;../lygia/generative/random.glsl&quot;;
+#include &quot;../lygia/generative/cnoise.glsl&quot;;
+
+#define RED      vec3(1.0, 0.0, 0.0)
+#define YELLOW   vec3(1.0, 1.0, 0.0)
+#define BLUE     vec3(0.0, 0.0, 1.0)
+#define WHITE    vec3(1.0, 1.0, 1.0)
+
+void main() {
+  vec2 st = gl_FragCoord.xy/u_resolution.xy;
+  gl_FragColor = vec4(RED, 1.0);
+}
+</code></pre>
+<p>What we have also done here is <a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language#Preprocessor" target="_blank" class="external-link">include</a> two other glsl files, and those of you familiar with some c programming would have seen this before, but even if you haven't, it is nothing scary. This is a simple straightforward way to use functions and code from another file, by doing exactly what it says, including them at the beginning of our own code. What comes after <code>#include</code> is a file path, relative to the location of your current shader. And so for me, <a href="https://github.com/patriciogonzalezvivo/lygia" target="_blank" class="external-link">lygia</a> is in the folder outside the folder I am in now, like so</p>
+<p>And just to take a little space to gush about lygia, it is a wonderful library with a whole lot of functions ranging from drawing shapes to manipulating color and space. It is created by <a href="http://patriciogonzalezvivo.com/" target="_blank" class="external-link">Patricio Gonzalez Vivo</a>, also one of the co authors of the <a href="https://thebookofshaders.com/" target="_blank" class="external-link">book of shaders</a> and the creator of <a href="https://github.com/patriciogonzalezvivo/glslViewer" target="_blank" class="external-link">glslViewer</a> ❤️ Honestly, where would I be if not for these amazing tools and resources! ✨️</p>
+<p>With lygia, as you can probably figure, it is much simpler to now have access to functions like <code>noise</code> and <code>random</code>, which we would have originally had to copy paste inside our shader. About the <code>#include</code>, it did not work in the vscode extension <a href="https://marketplace.visualstudio.com/items?itemName=circledev.glsl-canvas" target="_blank" class="external-link">glsl-canvas</a> last time I checked so you may want to go ahead and install glslViewer 👩‍💻</p>
+<p>Now what characterizes a Mondrian are the straight lines, horizontal and vertical and the three primary colors 🔴🌕🔵 which are the only elements that he thought were necessary. Even diagonals are not allowed, and side note, he cut away from Theo van Doesburg after a disagreement on this exact subject.</p>
+<p>So we figure we need to construct a grid in a somewhat non regular manner and then start filling the boxes of the grid with color. Atleast that is what we will try to do. 🙌</p>
+<h3 id="grid-up">Grid up</h3>
+<pre><code class="language-glsl">void main() {
+  vec2 st = gl_FragCoord.xy/u_resolution.xy;
+  float size = 5.0;
+
+  vec2 grid = st;
+  grid.x *= cnoise(vec2(st.x))*size;
+  grid.y *= cnoise(vec2(st.y))*size;
+
+  float rows = step(0.5, fract(grid.y)) == 0.0 ? 0.5 : 0.0;
+  vec3 cols = vec3(step(0.5, fract(grid.x + rows))); 
+
+  gl_FragColor = vec4(cols, 1.0);
+}
+</code></pre>
+<p>To make the grid, we can pick up from where we left in the last article and expand our space <code>st</code> but this time using <code>cnoise</code>, an implementation of classic perlin noise from the lygia library, to create non regularity in a controlled manner. <code>cnoise</code> takes in a <code>vec2</code>, so now <code>grid</code> would range between <code>0-size</code> in both directions, and this way also produced a symmetry along the x axis. There must be tons of other, probably better ways to get non uniform grids but we will stick with this for now.</p>
+<h3 id="fill-in-the-color">Fill in the color</h3>
+<p>Now that we have our black and white grid, we can move on to adding color. We are going to use a glsl function called <a href="https://thebookofshaders.com/glossary/?search=mix" target="_blank" class="external-link"><code>mix</code></a> which can be used for many things but, from what little glsl code I have seen, it is usually used to transition smoothly between colors based on a function.</p>
+<p>To start, we need to select rectangles from this grid and then fill them with 🔴, 🌕, or 🔵. To give a random gray color to parts of a grid we can do something like so</p>
+<pre><code class="language-glsl">float random_c = floor(grid.x + rows)/size;
+// vec2 random_c = floor(vec2(grid.x + rows, grid.y*2.0))/size;
+cols = vec3(random(random_c));
+</code></pre>
+<p>This chooses a random <code>float</code> based on <code>grid.x+rows</code> which is essentially our columns, and same values of rgb give it the color between white and black that we see. Again, this is just one of the ways to do this, because as the title says, we are going to fail to make a Mondrian so go ahead and comment out the second line and use that if you like!</p>
+<p>We will do this process three times for our three colors, and then mix in those colors with a white background based on the values that we'll get.</p>
+<pre><code class="language-glsl">vec3 colorf = vec3(0.0);
+colorf.x = step(0.0, random(random_c));
+colorf.y = step(0.1, random(random_c));
+colorf.z = step(0.4, random(random_c));
+
+gl_FragColor = vec4(colorf, 1.0);
+</code></pre>
+<p>With the <code>step</code> function, we are splitting the random space from <code>random(random_c)</code> into two parts, like colored/not colored, and red/not red and so forth. You can try tweaking the first value in <code>step</code> function and see the change that it makes.</p>
+<p>Now using these values we will finally start mixing in the colors that we want 🎨 The <code>mix</code> function in glsl takes three arguements, the first two of which are the colors to be mixed, and the third is the function which mixes them. So if we say <code>mix(WHITE, BLACK, 0.0)</code> we would get the color <code>WHITE</code> and <code>mix(WHITE, BLACK, 1.0)</code> would give us <code>BLACK</code>. We can also do this iteratively by mixing further into the color that we get in a previous step like so.</p>
+<pre><code class="language-glsl">vec3 color = WHITE;
+color = mix(color, RED, colorf.x);
+color = mix(color, YELLOW, colorf.y);
+color = mix(color, BLUE, colorf.z);
+
+gl_FragColor = vec4(color, 1.0);
+</code></pre>
+<p>For a much detailed and thorough explanation do check the <a href="https://thebookofshaders.com/06/" target="_blank" class="external-link">color chapter</a> from the book of shaders. Our code above makes sure that only these three colors fill different parts of the grid and not any other color combinations.</p>
+<p>As an extra exercise we can also try outlining all the grid cells that we have, again using the <code>step</code> and <code>mix</code> functions. Doing the outlining before the colors would hide it, just like if we were doing it on paper, so we will add it in the end.</p>
+<pre><code class="language-glsl">vec2 outline = step(0.1, fract(vec2(grid.x + rows, grid.y*2.0)));
+vec3 color = WHITE;
+color = mix(color, RED, colorf.x);
+color = mix(color, YELLOW, colorf.y);
+color = mix(color, BLUE, colorf.z);
+color = mix(color, 1.0-WHITE, 1.0-outline.y);
+color = mix(color, 1.0-WHITE, 1.0-step(0.1, fract(grid.y*2.0)));
+color = mix(color, 1.0-WHITE, 1.0-outline.x);
+</code></pre>
+<p>And that's it, we'll stop here but there are tons of ways this can go further like using the uniform <code>u_time</code> and incorporating it in constructing our grid so the grid could move.</p>
+<p>Here are a few things I made, hope you have fun making yours 💃👏</p>
 
     </div>
 
@@ -2601,7 +2688,7 @@ More importantly, I'd never want to wake up to the other one.</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
+                                                            <i class="fa fa-link"></i> <a href="/what-is-a-digital-garden/">what is a digital garden</a>
                                                       </div></div>
                                     </div>
                                     
@@ -2619,7 +2706,11 @@ More importantly, I'd never want to wake up to the other one.</p>
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [];
+    const backLinks = [{
+                id: 1,
+                title: "what is a digital garden",
+                url: "/what-is-a-digital-garden/"
+            },];
 
     const outbound = [].map(x => {
         x.id += backLinks.length;
@@ -2628,11 +2719,11 @@ More importantly, I'd never want to wake up to the other one.</p>
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "silence" || "Home"
+    const title = "mondrian" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/poems/silence/"
+        url: "/writings/mondrian/"
     };
 
     const gData = {

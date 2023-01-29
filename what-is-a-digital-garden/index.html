@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Silence</title>
+    <title>what is a digital garden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 <script>
@@ -2543,7 +2543,7 @@ cite a:link {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Silence</h1>
+        <h1>what is a digital garden</h1>
       
       <div class="header-meta">
         
@@ -2551,33 +2551,42 @@ cite a:link {
             
               
             
+              
+            
           </div>
         
       </div>
-      <p>She is the bedsheet I wrap around myself in the morning<br>
-The only voice being the one in my head<br>
-I like to breathe in before I breathe out<br>
-Just be with her before anything else.</p>
-<p>We were first introduced in class<br>
-&quot;Hey, I'm the pin drop&quot;, she said<br>
-I disliked by proxy<br>
-She, who was summoned by the teacher herself.</p>
-<p>Our relationship has grown since<br>
-An increase in understanding reciprocated with peace offerings<br>
-Alone time with her was once like punishment<br>
-Now it feels like self care.</p>
-<p>I'm sure you've seen her too<br>
-Unsure of herself inside a court<br>
-Begrudgingly in the parliament<br>
-Or maybe uninvited in your own house.</p>
-<p>But don't mistake her for being docile like I did<br>
-She has wrapped herself around my neck enough times for me to take note<br>
-Challenging me to muster my sorry words<br>
-Scratching my throat.</p>
-<p>Given that is how it is,<br>
-You say, why would I not wish for her to be gone<br>
-Valid question it would be, if not everyone had their flaws<br>
-More importantly, I'd never want to wake up to the other one.</p>
+      <p>But before that; why do I have a website?<br>
+For one, I am not someone who has a lot of thoughts worth publicly writing about. And while I certainly enjoy documenting things<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>, more often than not, I struggle with words.</p>
+<p>This website began, like a lot of things do with me, as a way of measuring progress; specifically, trying to learn how to write fragment shaders by making tiny shaders and then explaining the process as best I could by writing a small article<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>. Sadly though, I never got quite far with that series, and after <a class="internal-link " href="/writings/chess-board/">chess board</a>, <a class="internal-link " href="/writings/texture-land/">texture land</a>, and <a class="internal-link " href="/writings/mondrian/">mondrian</a>, I continued to write more shaders but never got around to writing another article.</p>
+<p>Then sometime in January 2022, <a href="https://twitter.com/anushkatr/status/1481567649192906752" target="_blank" class="external-link">I decided to redesign my website every year on twitter</a> and the current version is a continuation of this exercise with some major structural redesigns and less important visual ones<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>.  It started with wanting a better workflow for writing to help me think better, and the idea of building a digital garden <sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup> really stuck with me. I am giving myself the space to not agonise over every single word and how it may sound to an external audience, and instead use writing as a way to consolidate floaty bits of thoughts that I sometimes happen to have.</p>
+<p>Let me then make an incomplete list of things this garden might have</p>
+<ul>
+<li>notes about current projects</li>
+<li>half cooked slash uncooked ideas for new projects</li>
+<li>rationalizing slash historical bits, like this one, about why I do certain things</li>
+<li>unasked for opinions</li>
+<li>jokes in footnotes</li>
+<li>more jokes than references in footnotes</li>
+<li>more incomplete lists</li>
+<li>lists saying &quot;lists are fun but totally pointless&quot;</li>
+<li><a class="internal-link " href="/poems/untitled/">untitled</a> poems</li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>PCD India is a community of creative coding enthusiasts, tech artists, designers, live coders, data nerds, musicians, architects, paper engineers and artists whose practices contain these and more elements. We are a group of enthu cutlets who love experimentation and sharing, come hang out! https://processingindia.com/2021 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>My first article <a class="internal-link " href="/writings/hello-shader/">hello shader</a> literally begins with a  cheerful 'Hey!' haha <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>cos who likes to write css revisions in the first month of a new year; not me. yes, I will continue to use footnotes for silly jokes. <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>https://maggieappleton.com/garden-history <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>https://nesslabs.com/digital-garden-set-up <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
     </div>
 
@@ -2621,18 +2630,38 @@ More importantly, I'd never want to wake up to the other one.</p>
 
     const backLinks = [];
 
-    const outbound = [].map(x => {
+    const outbound = [{
+                id: 1,
+                title: "Let's make a Chess Board",
+                url: "/writings/chess-board/"
+            },{
+                id: 2,
+                title: "Texture land 👾",
+                url: "/writings/texture-land/"
+            },{
+                id: 3,
+                title: "Shall we fail at making a Mondrian!",
+                url: "/writings/mondrian/"
+            },{
+                id: 4,
+                title: "Untitled",
+                url: "/poems/untitled/"
+            },{
+                id: 5,
+                title: "Hello Shader!",
+                url: "/writings/hello-shader/"
+            },].map(x => {
         x.id += backLinks.length;
         return x;
     });
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "silence" || "Home"
+    const title = "what is a digital garden" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/poems/silence/"
+        url: "/what-is-a-digital-garden/"
     };
 
     const gData = {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Silence</title>
+    <title>Hello Shader!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 <script>
@@ -2543,7 +2543,7 @@ cite a:link {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Silence</h1>
+        <h1>Hello Shader!</h1>
       
       <div class="header-meta">
         
@@ -2551,33 +2551,97 @@ cite a:link {
             
               
             
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #shader
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #2021
+                </a>
+              
+            
           </div>
         
       </div>
-      <p>She is the bedsheet I wrap around myself in the morning<br>
-The only voice being the one in my head<br>
-I like to breathe in before I breathe out<br>
-Just be with her before anything else.</p>
-<p>We were first introduced in class<br>
-&quot;Hey, I'm the pin drop&quot;, she said<br>
-I disliked by proxy<br>
-She, who was summoned by the teacher herself.</p>
-<p>Our relationship has grown since<br>
-An increase in understanding reciprocated with peace offerings<br>
-Alone time with her was once like punishment<br>
-Now it feels like self care.</p>
-<p>I'm sure you've seen her too<br>
-Unsure of herself inside a court<br>
-Begrudgingly in the parliament<br>
-Or maybe uninvited in your own house.</p>
-<p>But don't mistake her for being docile like I did<br>
-She has wrapped herself around my neck enough times for me to take note<br>
-Challenging me to muster my sorry words<br>
-Scratching my throat.</p>
-<p>Given that is how it is,<br>
-You say, why would I not wish for her to be gone<br>
-Valid question it would be, if not everyone had their flaws<br>
-More importantly, I'd never want to wake up to the other one.</p>
+      <p>Hey! Yes since I have never written for THE Web before this is how I'll start. This is probably not going to be very good since aforementioned haha but hopefully if you are as new to shaders as I am, and are learning them yourself, you might find something of value in here.</p>
+<p>This article is the start of a series of articles that I plan on writing about shaders while learning how to write them. Documenting the learning process in this way will hopefully help me understand what areas I have covered, where I feel comfortable, and which parts I should focus on next. I've always been someone who starts something but never really gets around to finishing it, and so I hope that I can finally end that with these articles and have more understanding after, let's say a month, of <a href="https://www.instagram.com/p/CLZmyd3B3vv/" target="_blank" class="external-link">where I was and where I am headed</a>(<a href="https://www.instagram.com/kayserifserif/" target="_blank" class="external-link">@kayserifserif</a>, thank you for the inspiration!)</p>
+<h3 id="aand-it-s-shader-time">Aand it's shader time</h3>
+<p>Today I will be going through a shader I wrote to recreate an old sketch made in Processing.</p>
+<p>The Processing code uses an Eye class and some vector math that I thought was a bit overkill for the idea of the sketch, which is to have two circles, one inside the other, with the inner circle responding to mouse movement, and sort of imitate human eyes 👀</p>
+<p>To try out this shader and experiment with your own, it is very simple and easy to use an extension in VSCode, there is hardly any setup required and you'll be able to see the output right inside your editor with changes being reflected as you type them. I have been using <a href="https://marketplace.visualstudio.com/items?itemName=circledev.glsl-canvas" target="_blank" class="external-link">glsl-canvas</a> but there are a few others as well.</p>
+<p>For our simple purposes we only need to know how to make circles and make them move using glsl. If you haven't already heard of the <a href="https://thebookofshaders.com/" target="_blank" class="external-link">Book of Shaders</a>, leave this simple minded article right now and head over there because I could never be as succint and amazing in explaining the smallest details or big picture ideas about shaders, and the site is just beautiful. 🖤 But if you already know a bit about Fragment Shaders, you'll know that we need a <code>main</code> function, some necessary directives and uniforms and a function to make a circle to begin with.</p>
+<p>The circle function takes as its input a vector describing the coordinate space of the canvas, a vector for the center of the circle in this coordinate space and a radius value. We're drawing the circle based on the distance between each pixel and the center of the circle. So a color will be calculated for each pixel based on how far it is from the center of the circle. I referred the Book of Shaders <a href="https://thebookofshaders.com/05/" target="_blank" class="external-link">shaping</a> page myself because this part is not always easy to understand and it takes a lot of time and practice to develop the intuition that'll let you write amazing shaping functions in glsl. Bless us all, Mr Miyagi!</p>
+<pre><code class="language-glsl">#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+float circle(vec2 _st, vec2 _pos, float _radius) {
+    vec2 dist = _pos-_st;
+    dist *= 0.5;
+    float val = smoothstep(_radius-0.01, _radius+0.01, dot(dist,dist)*4.0);
+    return val;
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+
+</code></pre>
+<p>But for now, since we are not using the circle function inside <code>main</code> you should only see red if you run this shader. On with circles, now ⚫⚪🔴</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    float c = 1.0-circle(fract(st*2.0), vec2(0.5), 0.2);
+
+    gl_FragColor = vec4(vec3(c), 1.0);
+}
+
+</code></pre>
+<p>You might be wondering what is this <code>fract</code> business we've got going here and so I will try to explain. Inside our shader the coordinate space, i.e. <code>st</code> lies between 0.0 and 1.0 since we are normalizing using the resolution of the screen, <code>u_resolution</code>. <a href="https://thebookofshaders.com/glossary/?search=fract" target="_blank" class="external-link">fract</a> is a glsl function that returns the fractional value of any number. I am using it here to be able to draw more than one circle while only using <code>vec(0.5)</code> as the location for all the circles. The subtraction in the beginning is to reverse the color of circle and background.</p>
+<p>To make the smaller circle within the bigger circle, we'll call the <code>circle</code> function again, giving it the same coordinate space and a smaller radius, but we don't want it to be stationary. Let's set the location as a function of the uniform <code>u_time</code>. We want the small circle to move in a circle(yay circles!), so by using <code>u_time</code> as our angle, we can calculate the x and y location</p>
+<pre><code class="language-glsl">    x = cos(u_time) * radius
+    y = sin(u_time) * radius
+</code></pre>
+<p>Finally we will add 0.5 as an offset to center the smaller circle within the big circle. When finally setting <code>gl_FragColor</code> in the last line, we will multiply the values for both circles. This would be equivalent to an <code>and</code> operation, in shader terms, combining both the results. Also notice how we subtract from 1.0 with only the bigger circle and not the smaller one. You could try playing with this to get a better feel for how things are working.</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    float c = 1.0-circle(fract(st*2.0), vec2(0.5), 0.2);
+
+    float smallc_len = 0.25;
+    vec2 smallc_pos = vec2(cos(u_time)*smallc_len, sin(u_time)*smallc_len)+0.5;
+    float smallc = circle(fract(st*2.0), vec2(smallc_pos), 0.1);
+
+    gl_FragColor = vec4(vec3(c*smallc), 1.0);
+}
+
+</code></pre>
+<p>The only thing remaining now is to add mouse interaction 🐁 since we don't want all the circles looking in the same direction, which is what happens if we use any uniform as that value would be the same for all our pixels.</p>
+<p>For this we'll first normalise the uniform <code>u_mouse</code> just like we normalised the coordinates. And then make a vector starting from the pixel position pointing towards the mouse. We can now use this vector to calculate an angle using inverse tangent.</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    vec2 m = u_mouse.xy/u_resolution.xy;
+
+    vec2 dir = m-st;
+    float dirangle = atan(dir.y, dir.x);
+
+    float c = 1.0-circle(fract(st*4.0), vec2(0.5), 0.2);
+
+    float smallc_len = 0.25;
+    vec2 smallc_pos = vec2(cos(dirangle)*smallc_len, sin(dirangle)*smallc_len)+0.5;
+    float smallc = circle(fract(st*4.0), vec2(smallc_pos), 0.1);
+
+    gl_FragColor = vec4(vec3(c*smallc), 1.0);
+}
+</code></pre>
+<p>And if we just plug this angle into our smaller circles, tada, we have our shader!</p>
+<p>If you have something to share, thoughts about this article, or any mistakes that you thought were made(very probable), please feel free to reach out to me on Instagram, link in footer. 💃 That's all for this time, hopefully there will be more soon.</p>
 
     </div>
 
@@ -2601,7 +2665,7 @@ More importantly, I'd never want to wake up to the other one.</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
+                                                            <i class="fa fa-link"></i> <a href="/what-is-a-digital-garden/">what is a digital garden</a>
                                                       </div></div>
                                     </div>
                                     
@@ -2619,7 +2683,11 @@ More importantly, I'd never want to wake up to the other one.</p>
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [];
+    const backLinks = [{
+                id: 1,
+                title: "what is a digital garden",
+                url: "/what-is-a-digital-garden/"
+            },];
 
     const outbound = [].map(x => {
         x.id += backLinks.length;
@@ -2628,11 +2696,11 @@ More importantly, I'd never want to wake up to the other one.</p>
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "silence" || "Home"
+    const title = "hello shader" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/poems/silence/"
+        url: "/writings/hello-shader/"
     };
 
     const gData = {

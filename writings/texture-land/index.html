@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Silence</title>
+    <title>Texture land 👾</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 <script>
@@ -2543,7 +2543,7 @@ cite a:link {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Silence</h1>
+        <h1>Texture land 👾</h1>
       
       <div class="header-meta">
         
@@ -2551,33 +2551,114 @@ cite a:link {
             
               
             
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #shader
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #texture
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #2021
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #april
+                </a>
+              
+            
           </div>
         
       </div>
-      <p>She is the bedsheet I wrap around myself in the morning<br>
-The only voice being the one in my head<br>
-I like to breathe in before I breathe out<br>
-Just be with her before anything else.</p>
-<p>We were first introduced in class<br>
-&quot;Hey, I'm the pin drop&quot;, she said<br>
-I disliked by proxy<br>
-She, who was summoned by the teacher herself.</p>
-<p>Our relationship has grown since<br>
-An increase in understanding reciprocated with peace offerings<br>
-Alone time with her was once like punishment<br>
-Now it feels like self care.</p>
-<p>I'm sure you've seen her too<br>
-Unsure of herself inside a court<br>
-Begrudgingly in the parliament<br>
-Or maybe uninvited in your own house.</p>
-<p>But don't mistake her for being docile like I did<br>
-She has wrapped herself around my neck enough times for me to take note<br>
-Challenging me to muster my sorry words<br>
-Scratching my throat.</p>
-<p>Given that is how it is,<br>
-You say, why would I not wish for her to be gone<br>
-Valid question it would be, if not everyone had their flaws<br>
-More importantly, I'd never want to wake up to the other one.</p>
+      <p>This is definitely not a week after the last article. And I think a part of the reason is because I haven't been studying shaders consistently. But hey, I'm back here, and so that is a good sign right? I hope it is. So today I want to talk about textures and make a simple shader that pixelates an image.</p>
+<h3 id="what-is-a-texture-you-say">What is a texture you say</h3>
+<p>Simply put, texture is shader speak for image. When getting introduced to texture, and even during this article you will come across the term texture coordinates as well. Now this concept does not have a counterpart with respect to images, but it becomes inseparable from textures when it comes to shaders. If you have a texture, you must have texture coordinates.</p>
+<p>And this is the way it is because shaders have the capability to wrap a texture around 3D objects and in other ways as well. That is, you can use an image to cover a 3D model, for example a cylinder, in any number of ways you can imagine. To specify which part of an image goes where on a 2D plane or a 3D object, we need texture coordinates. This will become more clear as you use them yourself in a bit.</p>
+<h3 id="what-are-we-waiting-for">What are we waiting for</h3>
+<p>So to begin, let's write all the simple boilerplate that we need for our shader, and you should see a red screen.</p>
+<pre><code class="language-glsl">#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+uniform sampler2D u_texture_0;
+
+void main() {
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</code></pre>
+<p>You must have noticed that we have an extra uniform of type <code>sampler2D</code>, and this is our texture/image. If you are using <a href="https://marketplace.visualstudio.com/items?itemName=circledev.glsl-canvas" target="_blank" class="external-link">glsl-canvas</a> on VSCode then you can define your texture location in the <code>settings.json</code> file of your current workspace and will have to use the name <code>u_texture_0</code> for the uniform. For more information on how to do this, you can look into the Textures section on the <a href="https://marketplace.visualstudio.com/items?itemName=circledev.glsl-canvas" target="_blank" class="external-link">extension page</a>.</p>
+<p>But we are not done yet displaying our image, since we are not using the texture inside the shader at all yet. So let's go ahead and do that.</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    vec4 tex = texture2D(u_texture_0, st);
+
+    gl_FragColor = tex;
+}
+</code></pre>
+<p>To use a texture inside a shader, the function that glsl provides us is called <code>texture2D</code>. The first parameter for this function is the texture uniform and the second parameter is.. yes you guessed it, texture coordinates!</p>
+<p>Side note: as you can probably tell from the code, texture coordinates usually range from 0 to 1 although this might not be so in some cases. But it would be safe to assume the range 0-1 for most cases.</p>
+<h3 id="p-piixxeellaattee">PPiixxeellaattee</h3>
+<p>Now that we can display an image inside a shader, let's move to the next step and pixelate it. For doing this, do you think we should modify the texture coordinates, i.e. how we get pixels from an image, or the image after we get it using simple texture coordinates. Let's first try using the first approach.<br>
+And to get to that we'll first explore how to make a grid using a shader.</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+
+    vec2 tex_coord = st;
+    vec4 tex = texture2D(u_texture_0, tex_coord);
+
+    float grid = random(floor(st*10.0));
+
+    // gl_FragColor = tex;
+    gl_FragColor = vec4(vec3(grid), 1.0);
+}
+</code></pre>
+<p>If we try to unpack this line which defines our <code>grid</code>, we can see that we are first upscaling or zooming out by multiplying <code>st</code> with a float value and then flooring the space to get floored values like <code>0.0, 1.0, 2.0, 3.0, 4.0..</code>. This flooring operation essentially divides our entire space into a grid. When picking randomly from this floored grid, we start to get closer to our idea of pixellation.</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+
+    vec2 tex_coord = st;
+    vec4 tex = texture2D(u_texture_0, tex_coord);
+
+    vec2 grid = floor(st*10.0)/10.0;
+
+    // gl_FragColor = tex;
+    gl_FragColor = vec4(vec3(grid.x, grid.y, 0.0), 1.0);
+}
+</code></pre>
+<p>Side note: If you are wondering, like I was, how <code>floor</code> operation differs from <code>fract</code> operation, try and substitute!</p>
+<h3 id="grid-texture">Grid + texture = ?</h3>
+<p>Since we have all the ingredients for our recipe, let's plug them into action and see what happens!</p>
+<pre><code class="language-glsl">void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    
+    float deg = 4.0;
+    vec2 grid = vec2(random(floor(st*deg)));
+
+    vec2 tex_coord = st+grid;
+    vec4 tex = texture2D(u_texture_0, tex_coord);
+
+    gl_FragColor = tex;
+}
+</code></pre>
+<p>Oops what are these weird lines, we don't want those? Let us go back to what we said about texture coordinates. They range from 0 to 1, and since we are adding two vectors to each other, is it not possible for them to exceed this range..? What if we take only the <code>fract</code>ional part of the resulting vector?</p>
+<pre><code class="language-glsl">vec2 tex_coord = fract(st+grid);
+</code></pre>
+<p>Voila, we've done it!</p>
+<p>You can now try playing around with these different values, maybe change how you want to define the <code>deg</code> of pixelation.<br>
+Here are a few things I got while messing around.</p>
+<p>These looked much better in motion, but I haven't yet figured out how to use videos with Gatsby xD. You can try playing with motion as well by using the <code>u_time</code> uniform.<br>
+So until next time, which will hopefully be sooner, have fun! 💃</p>
 
     </div>
 
@@ -2601,7 +2682,7 @@ More importantly, I'd never want to wake up to the other one.</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
+                                                            <i class="fa fa-link"></i> <a href="/what-is-a-digital-garden/">what is a digital garden</a>
                                                       </div></div>
                                     </div>
                                     
@@ -2619,7 +2700,11 @@ More importantly, I'd never want to wake up to the other one.</p>
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [];
+    const backLinks = [{
+                id: 1,
+                title: "what is a digital garden",
+                url: "/what-is-a-digital-garden/"
+            },];
 
     const outbound = [].map(x => {
         x.id += backLinks.length;
@@ -2628,11 +2713,11 @@ More importantly, I'd never want to wake up to the other one.</p>
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "silence" || "Home"
+    const title = "texture land" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/poems/silence/"
+        url: "/writings/texture-land/"
     };
 
     const gData = {

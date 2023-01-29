@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Silence</title>
+    <title>Let&#39;s make a Chess Board</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 <script>
@@ -2543,7 +2543,7 @@ cite a:link {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Silence</h1>
+        <h1>Let&#39;s make a Chess Board</h1>
       
       <div class="header-meta">
         
@@ -2551,33 +2551,86 @@ cite a:link {
             
               
             
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #shader
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #drawing
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #2021
+                </a>
+              
+            
+              
+                <a class="tag" onclick="toggleTagSearch(this)">
+                  #june
+                </a>
+              
+            
           </div>
         
       </div>
-      <p>She is the bedsheet I wrap around myself in the morning<br>
-The only voice being the one in my head<br>
-I like to breathe in before I breathe out<br>
-Just be with her before anything else.</p>
-<p>We were first introduced in class<br>
-&quot;Hey, I'm the pin drop&quot;, she said<br>
-I disliked by proxy<br>
-She, who was summoned by the teacher herself.</p>
-<p>Our relationship has grown since<br>
-An increase in understanding reciprocated with peace offerings<br>
-Alone time with her was once like punishment<br>
-Now it feels like self care.</p>
-<p>I'm sure you've seen her too<br>
-Unsure of herself inside a court<br>
-Begrudgingly in the parliament<br>
-Or maybe uninvited in your own house.</p>
-<p>But don't mistake her for being docile like I did<br>
-She has wrapped herself around my neck enough times for me to take note<br>
-Challenging me to muster my sorry words<br>
-Scratching my throat.</p>
-<p>Given that is how it is,<br>
-You say, why would I not wish for her to be gone<br>
-Valid question it would be, if not everyone had their flaws<br>
-More importantly, I'd never want to wake up to the other one.</p>
+      <p>It has been quite some time, a bit over two months(!) since I last wrote an article. But let's stop beating ourself over it, maybe that's how we'll get to writing more of these. In fact an exciting update is that I've sort of made myself a shader curriculum, and by no way is this covering everything. But I am hoping that if I can give this enough time in a week, I can get to be more consistent with the project of learning about shaders! 🎉</p>
+<p>This time I thought I'll try to do something simple i.e. make a chess board to pratice using some important glsl functions like <a href="https://thebookofshaders.com/glossary/?search=fract" target="_blank" class="external-link"><code>fract</code></a> and <a href="https://thebookofshaders.com/glossary/?search=step" target="_blank" class="external-link"><code>step</code></a>. This is going to be the smallest shader that I have written an article on thus far. But the idea is to make this into a series and make an actual chess board with all it's pieces, and everything, using (hopefully) just shaders!</p>
+<p>Also a last thing before we can get into it. I have changed my workflow and now instead of using <a href="https://marketplace.visualstudio.com/items?itemName=circledev.glsl-canvas" target="_blank" class="external-link">glsl-canvas</a>, I have started using <a href="https://github.com/patriciogonzalezvivo/glslViewer" target="_blank" class="external-link">glslViewer</a> made by the amazing Patricio Gonzalez, who is also one of the writers of <a href="https://thebookofshaders.com/" target="_blank" class="external-link">the book of shaders</a>. I found that I could do much more things with glslViewer like including other glsl files and using textures, in a much simpler fashion, so I am going to stick to this. Nevertheless the current example can be done inside glsl-canvas too.</p>
+<h3 id="what-are-we-waiting-for">What are we waiting for?</h3>
+<p>Let's start by writing the boilerplate stuff, making our uniforms, and setting a 🔴 color to <code>gl_FragColor</code> to begin with.</p>
+<pre><code class="language-glsl">#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform float u_time;
+
+void main() {
+  vec2 st = gl_FragCoord.xy/u_resolution.xy;
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</code></pre>
+<p>And now if we start deconstructing a chess board, it is basically made of white and black squares alternating each other in a two dimensional fashion. Since we need a bunch of these squares, we will have to expand our coordinates <code>st</code>, which currently is in the range 0-1 by multiplying it with some factor to convert it into 0-factor.</p>
+<pre><code class="language-glsl">vec2 grid = st*5.0;
+</code></pre>
+<p>We can now try to convert this into alternating black and white columns by using <code>step</code></p>
+<pre><code class="language-glsl">float cols = step(0.5, grid.x);
+</code></pre>
+<p>This won't look right because our space ranges from 0-factor and we'd like it to be in columns of 0-1 lined next to each other to be able to use <code>step</code></p>
+<p>Behold <code>fract</code> 👇</p>
+<pre><code class="language-glsl">float cols = step(0.5, fract(grid.x));
+</code></pre>
+<p>Now we figure we just need to repeat this process for rows and we've got it right?</p>
+<pre><code class="language-glsl">void main() {
+  vec2 st = gl_FragCoord.xy/u_resolution.xy;
+  vec2 grid = st*5.0;
+  float cols = step(0.5, fract(grid.x));
+  float rows = step(0.5, fract(grid.y));
+
+  vec3 board = vec3(rows+cols);
+  gl_FragColor = vec4(board, 1.0);
+}
+</code></pre>
+<p>Of course it could not be this simple, now could it. If you play with the rows and cols and see what is in them individually, you'll realise that they don't line up in the way we want them. And so multiplying <code>rows</code> and <code>cols</code> also does not help.</p>
+<p>I tried a few combinations of these but since they didn't work (maybe there are some I didn't think of, so let me know if you do!) I thought of trying to modify <code>cols</code> such that alternate rows have it shifted a bit.</p>
+<pre><code class="language-glsl">float rows = step(0.5, fract(grid.y)) == 0.0 ? 0.2 : 0.0;
+float cols = step(0.5, fract(grid.x + rows));
+</code></pre>
+<p>To break this down a bit, the first line uses a <code>ternary operator</code> which is a shortform for an <code>if statement</code> or a way for us to make a decision based on outcome of a condition. We could also rewrite it as</p>
+<pre><code class="language-glsl">float rows = 0.0;
+if(step(0.5, fract(grid.y)) != 0.0) {
+  rows = 0.2;
+}
+</code></pre>
+<p>So each alernate row seems to be shifting to the left by <code>0.2</code> because we have incorporated this value into constructing our columns by modifying it's coordinate system. You can play with this by manually changing the value of <code>rows</code> and adding it to grid.x and seeing what that does.</p>
+<p>And tada 🎉, by changing 0.2 to 0.5, we have our chess board!</p>
+<p>There is a whole bunch to explore with these patterns, so please change values wherever you like and make new ones 🎨 Hoping to come back soon with chess pieces(or start simpler, go pieces xD)</p>
+<p>Until then &lt;insert Bob Ross saying god bless my friends&gt;</p>
 
     </div>
 
@@ -2601,7 +2654,7 @@ More importantly, I'd never want to wake up to the other one.</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
+                                                            <i class="fa fa-link"></i> <a href="/what-is-a-digital-garden/">what is a digital garden</a>
                                                       </div></div>
                                     </div>
                                     
@@ -2619,7 +2672,11 @@ More importantly, I'd never want to wake up to the other one.</p>
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [];
+    const backLinks = [{
+                id: 1,
+                title: "what is a digital garden",
+                url: "/what-is-a-digital-garden/"
+            },];
 
     const outbound = [].map(x => {
         x.id += backLinks.length;
@@ -2628,11 +2685,11 @@ More importantly, I'd never want to wake up to the other one.</p>
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "silence" || "Home"
+    const title = "chess board" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/poems/silence/"
+        url: "/writings/chess-board/"
     };
 
     const gData = {
