@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/writings/texture-land/","title":"Texture land 👾","tags":["shader","texture","2021","april"]}
+{"dg-publish":true,"permalink":"/writings/texture-land/","title":"Texture land","tags":["shader","texture","2021","april"]}
 ---
 
 
