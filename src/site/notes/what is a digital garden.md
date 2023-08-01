@@ -18,8 +18,10 @@ Let me then make an incomplete list of things this garden might have
 - more jokes than references in footnotes
 - more incomplete lists
 - lists saying "lists are fun but totally pointless"
-- [[poems/untitled\|untitled]] poems 
+- [[on art made with software\|on art made with software]] poems 
 
+update - 30/05/2023
+I have not been writing a lot or taking notes. This website is almost turning out to be just like the previous ones where I engage with  it only rarely. I want to stop that and write more often even if it doesn't make sense. I want to tend to this garden. So I will try to make a habit to do this whenever I am consuming some media and integrate them into the garden at the end of the day or whenever feels right for a few seconds. 
 
 
 [^1]: PCD India is a community of creative coding enthusiasts, tech artists, designers, live coders, data nerds, musicians, architects, paper engineers and artists whose practices contain these and more elements. We are a group of enthu cutlets who love experimentation and sharing, come hang out! https://processingindia.com/2021 
