@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Big Bang Nucleosynthesis</title>
+    <title>day 1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -4150,7 +4150,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Big Bang Nucleosynthesis</h1>
+        <h1>day 1</h1>
       
       <div class="header-meta">
         
@@ -4161,11 +4161,51 @@ div.kanban-plugin__markdown-preview-view > div > * {
           </div>
         
       </div>
-      <p>Some neutrons combine with other neutrons to make more stable configurations.<br>
-Other neutrons decay into protons.<br>
-Electrons are not bound because of high energy.</p>
-<p>75% hydrogen, 25% helium<br>
-87% protons, 13% neutrons</p>
+      <p>Today will be the first day of this one month long learning challenge.<br>
+Initially I had thought of using substack for publishing my daily learning notes, but obsidian seems like a much better idea for further refinement and continued learning.</p>
+<p>A list of interesting points</p>
+<ul>
+<li>Humans are a mathematical anomaly<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>
+<ul>
+<li>do we romanticise being made of stardust? short answer, yes.</li>
+</ul>
+</li>
+<li>singularity is a tricky concept. highly possible for it not to exist.</li>
+<li>there is a smallest unit of time. one Planck time.</li>
+<li>grand unified force is a khichdi of electromagnetic, gravitation, weak and strong force.
+<ul>
+<li>what is the naming convention being weak and strong forces?</li>
+</ul>
+</li>
+<li>Information cannot travel faster than light but space can.
+<ul>
+<li><a class="internal-link is-unresolved" href="/notes/causality">causality</a></li>
+</ul>
+</li>
+<li>where does mass come from
+<ul>
+<li>Higgs Field being massless vs gaining non zero potential</li>
+</ul>
+</li>
+<li>There are more particles than anti particles
+<ul>
+<li>this is a huge reason for why the universe is the way it is</li>
+</ul>
+</li>
+<li><a class="internal-link " href="/quantum30/big-bang-nucleosynthesis/">Big Bang Nucleosynthesis</a></li>
+<li><a class="internal-link " href="/quantum30/cosmic-microwave-background/">Cosmic Microwave Background</a></li>
+<li>Quantum mechanics predicts all the elements in the periodic table<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></li>
+</ul>
+<p>Footnotes</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>https://www.youtube.com/watch?v=YCQPw9pbZnk <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>https://www.youtube.com/watch?v=tq_y1qOmUBE <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
     </div>
 
@@ -4189,7 +4229,7 @@ Electrons are not bound because of high energy.</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/day-1/">day 1</a>
+                                                            <i class="fa fa-link"></i> <a href="/quantum30/index/">quantum30</a>
                                                       </div></div>
                                     </div>
                                     
@@ -4209,22 +4249,30 @@ Electrons are not bound because of high energy.</p>
 
     const backLinks = [{
                 id: 1,
-                title: "day 1",
-                url: "/quantum30/day-1/"
+                title: "quantum30",
+                url: "/quantum30/index/"
             },];
 
-    const outbound = [].map(x => {
+    const outbound = [{
+                id: 1,
+                title: "Big Bang Nucleosynthesis",
+                url: "/quantum30/big-bang-nucleosynthesis/"
+            },{
+                id: 2,
+                title: "Cosmic Microwave Background",
+                url: "/quantum30/cosmic-microwave-background/"
+            },].map(x => {
         x.id += backLinks.length;
         return x;
     });
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "Big Bang Nucleosynthesis" || "Home"
+    const title = "day 1" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/quantum30/big-bang-nucleosynthesis/"
+        url: "/quantum30/day-1/"
     };
 
     const gData = {

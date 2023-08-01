@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Big Bang Nucleosynthesis</title>
+    <title>quantum30</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -4150,7 +4150,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Big Bang Nucleosynthesis</h1>
+        <h1>quantum30</h1>
       
       <div class="header-meta">
         
@@ -4161,11 +4161,10 @@ div.kanban-plugin__markdown-preview-view > div > * {
           </div>
         
       </div>
-      <p>Some neutrons combine with other neutrons to make more stable configurations.<br>
-Other neutrons decay into protons.<br>
-Electrons are not bound because of high energy.</p>
-<p>75% hydrogen, 25% helium<br>
-87% protons, 13% neutrons</p>
+      <h2 id="daily-entries">daily entries</h2>
+<ul>
+<li><a class="internal-link " href="/quantum30/day-1/">day 1</a></li>
+</ul>
 
     </div>
 
@@ -4189,7 +4188,7 @@ Electrons are not bound because of high energy.</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/day-1/">day 1</a>
+                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
                                                       </div></div>
                                     </div>
                                     
@@ -4207,24 +4206,24 @@ Electrons are not bound because of high energy.</p>
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [{
+    const backLinks = [];
+
+    const outbound = [{
                 id: 1,
                 title: "day 1",
                 url: "/quantum30/day-1/"
-            },];
-
-    const outbound = [].map(x => {
+            },].map(x => {
         x.id += backLinks.length;
         return x;
     });
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "Big Bang Nucleosynthesis" || "Home"
+    const title = "quantum30" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/quantum30/big-bang-nucleosynthesis/"
+        url: "/quantum30/index/"
     };
 
     const gData = {
