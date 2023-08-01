@@ -4223,7 +4223,7 @@ and hide behind our own fallacies</p>
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/what-is-a-digital-garden/">what is a digital garden</a>
+                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
                                                       </div></div>
                                     </div>
                                     
@@ -4241,11 +4241,7 @@ and hide behind our own fallacies</p>
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [{
-                id: 1,
-                title: "what is a digital garden",
-                url: "/what-is-a-digital-garden/"
-            },];
+    const backLinks = [];
 
     const outbound = [].map(x => {
         x.id += backLinks.length;
