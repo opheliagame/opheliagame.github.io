@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Quantum Entanglement</title>
+    <title>day 2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -4150,7 +4150,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Quantum Entanglement</h1>
+        <h1>day 2</h1>
       
       <div class="header-meta">
         
@@ -4161,7 +4161,22 @@ div.kanban-plugin__markdown-preview-view > div > * {
           </div>
         
       </div>
-      <p>Two particles interact with each other and get linked in a manner that measuring one particle allows us to instantaneously know what the other particle will be irrespective of the distance between them</p>
+      <p>I started to read <a href="https://quantum.country/" target="_blank" class="external-link">Quantum Country</a> today. I think it is a much better resource for me compared to watching videos. It is also quite an interesting approach to learning so I am looking forward to progressing with it.</p>
+<p>Things noted from today's videos</p>
+<ul>
+<li><a class="internal-link is-unresolved" href="/notes/deterministic-world">Deterministic world</a> vs <a class="internal-link is-unresolved" href="/notes/probabilistic-world">Probabilistic world</a></li>
+<li>Measurement collapses the wave function
+<ul>
+<li>It is not actually known how this happens</li>
+</ul>
+</li>
+<li>Superposition and the double slip experiment</li>
+<li><a class="internal-link " href="/quantum30/quantum-entanglement/">Quantum Entanglement</a></li>
+<li><a class="internal-link " href="/quantum30/quantum-tunnelling/">Quantum tunnelling</a></li>
+<li><a class="internal-link " href="/quantum30/heisenberg-uncertainty-principle/">Heisenberg Uncertainty Principle</a></li>
+<li><a class="internal-link " href="/quantum30/computers-are-a-fundamental-feature-of-the-universe/">computers are a fundamental feature of the universe</a></li>
+<li><a class="internal-link " href="/quantum30/qubit/">qubit</a></li>
+</ul>
 
     </div>
 
@@ -4185,7 +4200,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/day-2/">day 2</a>
+                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
                                                       </div></div>
                                     </div>
                                     
@@ -4203,24 +4218,40 @@ div.kanban-plugin__markdown-preview-view > div > * {
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [{
-                id: 1,
-                title: "day 2",
-                url: "/quantum30/day-2/"
-            },];
+    const backLinks = [];
 
-    const outbound = [].map(x => {
+    const outbound = [{
+                id: 1,
+                title: "Quantum Entanglement",
+                url: "/quantum30/quantum-entanglement/"
+            },{
+                id: 2,
+                title: "Quantum tunnelling",
+                url: "/quantum30/quantum-tunnelling/"
+            },{
+                id: 3,
+                title: "Heisenberg Uncertainty Principle",
+                url: "/quantum30/heisenberg-uncertainty-principle/"
+            },{
+                id: 4,
+                title: "computers are a fundamental feature of the universe",
+                url: "/quantum30/computers-are-a-fundamental-feature-of-the-universe/"
+            },{
+                id: 5,
+                title: "qubit",
+                url: "/quantum30/qubit/"
+            },].map(x => {
         x.id += backLinks.length;
         return x;
     });
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "Quantum Entanglement" || "Home"
+    const title = "day 2" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/quantum30/quantum-entanglement/"
+        url: "/quantum30/day-2/"
     };
 
     const gData = {

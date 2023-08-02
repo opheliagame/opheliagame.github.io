@@ -4190,7 +4190,7 @@ Is there a (single) universal computing device which can efficiently simulate an
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
+                                                            <i class="fa fa-link"></i> <a href="/quantum30/day-2/">day 2</a>
                                                       </div></div>
                                     </div>
                                     
@@ -4208,7 +4208,11 @@ Is there a (single) universal computing device which can efficiently simulate an
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [];
+    const backLinks = [{
+                id: 1,
+                title: "day 2",
+                url: "/quantum30/day-2/"
+            },];
 
     const outbound = [].map(x => {
         x.id += backLinks.length;
