@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Quantum Field Theory</title>
+    <title>day 3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -4150,7 +4150,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Quantum Field Theory</h1>
+        <h1>day 3</h1>
       
       <div class="header-meta">
         
@@ -4161,7 +4161,84 @@ div.kanban-plugin__markdown-preview-view > div > * {
           </div>
         
       </div>
-      <p>A theory that combines Quantum Mechanics with Faraday's idea of <a class="internal-link " href="/quantum30/fields/">Fields</a></p>
+      <p>I was planning to make some progress with Quantum Country today as well but then I got hit with some biology happening in my uterus so could not proceed. But here are a few observations from today</p>
+<ul>
+<li><a class="internal-link " href="/quantum30/quantum-field-theory/">Quantum Field Theory</a></li>
+<li>There are 3 fundamental particles ( well 12 actually )</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>lightest</th>
+<th></th>
+<th>heaviest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>electron</strong></td>
+<td>muon</td>
+<td>tau</td>
+</tr>
+<tr>
+<td>neutrino</td>
+<td>muon quark</td>
+<td>tau quark</td>
+</tr>
+<tr>
+<td><strong>up quark</strong></td>
+<td>strange quark</td>
+<td>bottom quark</td>
+</tr>
+<tr>
+<td><strong>down quark</strong></td>
+<td>charm quark</td>
+<td>up quark</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>forces</th>
+<th>fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gravity</td>
+<td>space time</td>
+</tr>
+<tr>
+<td>electro magnetic</td>
+<td>electro magnetic</td>
+</tr>
+<tr>
+<td>strong force (holds together nucleus)</td>
+<td>gluon field</td>
+</tr>
+<tr>
+<td>weak force (radioactive decay)</td>
+<td>w z bozon field</td>
+</tr>
+<tr>
+<td>higgs particle</td>
+<td>higgs field (responsible for mass)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>proton is 2 up quarks and 1 down quark</li>
+<li>neutron is 2 down quarks and 1 up quark</li>
+<li>Vacuum is made of fields - Quantum Vacuum Fluctuations</li>
+<li>Ideas of unification
+<ul>
+<li>Grand Unified Theory</li>
+<li>Super symmetry</li>
+<li>String theory</li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -4185,7 +4262,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/day-3/">day 3</a>
+                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
                                                       </div></div>
                                     </div>
                                     
@@ -4203,16 +4280,12 @@ div.kanban-plugin__markdown-preview-view > div > * {
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [{
-                id: 1,
-                title: "day 3",
-                url: "/quantum30/day-3/"
-            },];
+    const backLinks = [];
 
     const outbound = [{
                 id: 1,
-                title: "Fields",
-                url: "/quantum30/fields/"
+                title: "Quantum Field Theory",
+                url: "/quantum30/quantum-field-theory/"
             },].map(x => {
         x.id += backLinks.length;
         return x;
@@ -4220,11 +4293,11 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "Quantum Field Theory" || "Home"
+    const title = "day 3" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/quantum30/quantum-field-theory/"
+        url: "/quantum30/day-3/"
     };
 
     const gData = {
