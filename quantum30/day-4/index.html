@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Quantum Circuits</title>
+    <title>day 4</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -4150,7 +4150,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     <div class="content cm-s-obsidian">
       
-        <h1>Quantum Circuits</h1>
+        <h1>day 4</h1>
       
       <div class="header-meta">
         
@@ -4161,9 +4161,14 @@ div.kanban-plugin__markdown-preview-view > div > * {
           </div>
         
       </div>
-      <p>The simplest quantum circuit is the Quantum Wire</p>
-<p>Systems which make good quantum wires are difficult to build quantum gates for.<br>
-One of these systems is a <a class="internal-link " href="/quantum30/neutrino/">neutrino</a></p>
+      <p>Today started with Quantum Country and then I moved on to the videos for today. And I have to say that combining both of these resources has been interesting but I am also realising that it seems like I am making more steady progress with Quantum Country rather than the videos.</p>
+<p>here it goes</p>
+<ul>
+<li><a class="internal-link " href="/quantum30/quantum-state/">Quantum State</a></li>
+<li><a class="internal-link " href="/quantum30/quantum-logic-gates/">Quantum Logic Gates</a></li>
+<li><a class="internal-link " href="/quantum30/quantum-circuits/">Quantum Circuits</a></li>
+<li>Schrodinger was a polygamist. When he decided to derive the Wave Function, he moved to a cabin, without his wife/s and was surrounded by young women. In this period of a few months, he produced the four influential papers.</li>
+</ul>
 
     </div>
 
@@ -4187,9 +4192,7 @@ One of these systems is a <a class="internal-link " href="/quantum30/neutrino/">
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/day-4/">day 4</a>
-                                                      </div><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/neutrino/">neutrino</a>
+                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
                                                       </div></div>
                                     </div>
                                     
@@ -4207,20 +4210,20 @@ One of these systems is a <a class="internal-link " href="/quantum30/neutrino/">
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [{
-                id: 1,
-                title: "day 4",
-                url: "/quantum30/day-4/"
-            },{
-                id: 2,
-                title: "neutrino",
-                url: "/quantum30/neutrino/"
-            },];
+    const backLinks = [];
 
     const outbound = [{
                 id: 1,
-                title: "neutrino",
-                url: "/quantum30/neutrino/"
+                title: "Quantum State",
+                url: "/quantum30/quantum-state/"
+            },{
+                id: 2,
+                title: "Quantum Logic Gates",
+                url: "/quantum30/quantum-logic-gates/"
+            },{
+                id: 3,
+                title: "Quantum Circuits",
+                url: "/quantum30/quantum-circuits/"
             },].map(x => {
         x.id += backLinks.length;
         return x;
@@ -4228,11 +4231,11 @@ One of these systems is a <a class="internal-link " href="/quantum30/neutrino/">
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "Quantum Circuits" || "Home"
+    const title = "day 4" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/quantum30/quantum-circuits/"
+        url: "/quantum30/day-4/"
     };
 
     const gData = {
