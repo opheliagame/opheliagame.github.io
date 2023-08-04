@@ -4192,7 +4192,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <span class="no-backlinks-message">No other pages mentions this page</span>
+                                                            <i class="fa fa-link"></i> <a href="/quantum30/index/">quantum30</a>
                                                       </div></div>
                                     </div>
                                     
@@ -4210,7 +4210,11 @@ div.kanban-plugin__markdown-preview-view > div > * {
         return doc.documentElement.textContent;
     }
 
-    const backLinks = [];
+    const backLinks = [{
+                id: 1,
+                title: "quantum30",
+                url: "/quantum30/index/"
+            },];
 
     const outbound = [{
                 id: 1,
