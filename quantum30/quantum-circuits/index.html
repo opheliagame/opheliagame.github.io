@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>neutrino</title>
+    <title>Quantum Circuits</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
@@ -4150,7 +4150,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     <div class="content cm-s-obsidian">
       
-        <h1>neutrino</h1>
+        <h1>Quantum Circuits</h1>
       
       <div class="header-meta">
         
@@ -4161,8 +4161,9 @@ div.kanban-plugin__markdown-preview-view > div > * {
           </div>
         
       </div>
-      <p>A fundamental particle that does not interact with other types of matter.</p>
-<p>It is a really good option for making quantum wire (see <a class="internal-link " href="/quantum30/quantum-circuits/">Quantum Circuits</a>) but because of the same property, it becomes really difficult to design <a class="internal-link " href="/quantum30/quantum-logic-gates/">Quantum Logic Gates</a> for it which can manipulate its' state in a controlled manner.</p>
+      <p>The simplest quantum circuit is the Quantum Wire</p>
+<p>Systems which make good quantum wires are difficult to build quantum gates for.<br>
+One of these systems is a <a class="internal-link " href="/quantum30/neutrino/">neutrino</a></p>
 
     </div>
 
@@ -4186,7 +4187,7 @@ div.kanban-plugin__markdown-preview-view > div > * {
                                     <div class="backlinks">
                                           <div class="backlink-title" style="margin: 4px 0 !important;">Pages mentioning this page</div>
                                                 <div class="backlink-list"><div class="backlink-card">
-                                                            <i class="fa fa-link"></i> <a href="/quantum30/quantum-circuits/">Quantum Circuits</a>
+                                                            <i class="fa fa-link"></i> <a href="/quantum30/neutrino/">neutrino</a>
                                                       </div></div>
                                     </div>
                                     
@@ -4206,18 +4207,14 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     const backLinks = [{
                 id: 1,
-                title: "Quantum Circuits",
-                url: "/quantum30/quantum-circuits/"
+                title: "neutrino",
+                url: "/quantum30/neutrino/"
             },];
 
     const outbound = [{
                 id: 1,
-                title: "Quantum Circuits",
-                url: "/quantum30/quantum-circuits/"
-            },{
-                id: 2,
-                title: "Quantum Logic Gates",
-                url: "/quantum30/quantum-logic-gates/"
+                title: "neutrino",
+                url: "/quantum30/neutrino/"
             },].map(x => {
         x.id += backLinks.length;
         return x;
@@ -4225,11 +4222,11 @@ div.kanban-plugin__markdown-preview-view > div > * {
 
     const outboundDuplicatesRemoved = outbound.filter(x => !backLinks.find(b => b.url === x.url));
 
-    const title = "neutrino" || "Home"
+    const title = "Quantum Circuits" || "Home"
     const currentNode = {
         title,
         id: 0,
-        url: "/quantum30/neutrino/"
+        url: "/quantum30/quantum-circuits/"
     };
 
     const gData = {
