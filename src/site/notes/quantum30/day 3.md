@@ -10,7 +10,7 @@ I was planning to make some progress with Quantum Country today as well but then
 | lightest |  | heaviest |
 | ---- | ---- | ---- |
 | **electron** | muon | tau |
-| neutrino | muon quark | tau quark |
+| [[quantum30/neutrino\|neutrino]] | muon quark | tau quark |
 | **up quark** | strange quark | bottom quark |
 | **down quark** | charm quark | up quark |
 
