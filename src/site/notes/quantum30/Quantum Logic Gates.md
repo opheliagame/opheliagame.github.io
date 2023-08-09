@@ -2,7 +2,7 @@
 {"dg-publish":true,"permalink":"/quantum30/quantum-logic-gates/"}
 ---
 
-Not gate / X gate 
+## Not gate / X gate 
 
 $$
 {NOT|0\rangle = |1\rangle}
@@ -17,7 +17,7 @@ $$
 {X} =\begin{bmatrix} 0 & 1 \\ 1 & 0\end{bmatrix}
 $$
 
-Hadamard gate / H gate
+## Hadamard gate / H gate
 
 	by expanding the range of states that we can access, beyond what is possible on a classical computer, it becomes possible to take shortcuts in our computation
 
@@ -35,7 +35,7 @@ $$
 {H} = \dfrac{1}{\sqrt2}\begin{bmatrix} 1 & 1 \\ 1 & -1\end{bmatrix}
 $$
 
-## cancellation of $|1\rangle$ and reinforcement of $|0\rangle$ 
+### cancellation of $|1\rangle$ and reinforcement of $|0\rangle$ 
 $$
 \begin{aligned}
 &H(H|0\rangle) = H(\dfrac{|0\rangle + |1\rangle}{\sqrt2}) \\
