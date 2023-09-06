@@ -3817,80 +3817,9 @@ div.kanban-plugin__markdown-preview-view > div > * {
     
 
 
-    <script src="/javascript/quadtree.js"></script>
-<script src="/javascript/cssgrid.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', getGridContent, false);
-
-  const getCSSGridStyle = () => {
-    let qtree = new QuadTree(new Rectangle(200, 200, 200, 200), 2)
-    for (let i = 0; i < 18; i++) {
-      let p = new Point(Math.random() * 200 * 2, Math.random() * 200 * 2)
-      qtree.insert(p)
-    }
-
-    let grid = new CSSGrid(qtree, 200 * 2, 200 * 2)
-    let gridAreaString = grid.getGridAreaString()
-    let result = {
-      display: 'grid',
-      gridTemplateAreas: gridAreaString,
-      zIndex: -1,
-      width: '100vw',
-      height: '100vh',
-      position: 'absolute',
-      top: 0,
-      left: 0
-    }
-    return {
-      'gridAreaString': gridAreaString,
-      'gridIds': grid.gridIDs,
-    }
-  }
-
-  async function getGridContent() {
-    const style = getCSSGridStyle()
-    const gridAreaString = style.gridAreaString
-    let gridIds = style.gridIds
-    gridIds.sort((a, b) => 0.5 - Math.random())
-
-    let notes = await (await fetch('/index.json')).json()
-    notes = [
-      {
-        'permalink': '/',
-        'name': 'opheliagame',
-      },
-      ...notes.map(note => ({
-        'permalink': note.url,
-        'name': note.title
-      }))
-    ]
-
-    if (notes.length < gridIds.length) {
-      gridIds = gridIds.slice(0, notes.length)
-    }
-    else {
-      notes = notes.slice(0, gridIds.length)
-    }
-
-    notes.sort((a, b) => 0.5 - Math.random());
-    gridIds.forEach((id, index) => notes[index].gridArea = id)
-
-
-    const notesHtml = notes
-      .map(note => `<a class="block-link ${note.permalink == '/' ? "home" : ""}" style="grid-area: ${note.gridArea}; padding: ${Math.floor(Math.random() * 30)}px" href=${note.permalink}><div><span>${note.name}</span></div></a>`)
-      .join('')
-
-    let divHtml = `<div class="index-grid" style="grid-template-areas: ${gridAreaString}">${notesHtml}</div>`
-
-    let bodyDiv = document.getElementsByTagName('body')[0]
-    bodyDiv.insertAdjacentHTML('beforeend', divHtml)
-    console.log("end")
-
-  }
-
-</script>
+    
   </head>
-  <body class="theme-light markdown-preview-view markdown-rendered markdown-preview-section">
+  <body class="theme-light">
     
     
     
@@ -4194,5 +4123,444 @@ div.kanban-plugin__markdown-preview-view > div > * {
     }
 </script>
     
+
+    <div class="graph">
+        <div id="link-graph"></div>
+    </div>
+    <script>
+
+    const getCssVar = (variable) => getComputedStyle(document.body).getPropertyValue(variable);
+
+    function htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+    }
+
+    const gData = {
+      nodes: [
+        
+          {
+            id: 0,
+            title: "silence",
+            url: "/poems/silence/"
+          },
+        
+          {
+            id: 1,
+            title: "taxi rides in the morning",
+            url: "/poems/taxi-rides-in-the-morning/"
+          },
+        
+          {
+            id: 2,
+            title: "the man",
+            url: "/poems/the-man/"
+          },
+        
+          {
+            id: 3,
+            title: "things i&#39;ll throw away",
+            url: "/poems/things-i-ll-throw-away/"
+          },
+        
+          {
+            id: 4,
+            title: "untitled",
+            url: "/poems/untitled/"
+          },
+        
+          {
+            id: 5,
+            title: "draft poetry",
+            url: "/projects/draft-poetry/"
+          },
+        
+          {
+            id: 6,
+            title: "where is my body",
+            url: "/projects/where-is-my-body/"
+          },
+        
+          {
+            id: 7,
+            title: "Big Bang Nucleosynthesis",
+            url: "/quantum30/big-bang-nucleosynthesis/"
+          },
+        
+          {
+            id: 8,
+            title: "Cosmic Microwave Background",
+            url: "/quantum30/cosmic-microwave-background/"
+          },
+        
+          {
+            id: 9,
+            title: "Fields",
+            url: "/quantum30/fields/"
+          },
+        
+          {
+            id: 10,
+            title: "Heisenberg Uncertainty Principle",
+            url: "/quantum30/heisenberg-uncertainty-principle/"
+          },
+        
+          {
+            id: 11,
+            title: "Quantum Circuits",
+            url: "/quantum30/quantum-circuits/"
+          },
+        
+          {
+            id: 12,
+            title: "Quantum Entanglement",
+            url: "/quantum30/quantum-entanglement/"
+          },
+        
+          {
+            id: 13,
+            title: "Quantum Field Theory",
+            url: "/quantum30/quantum-field-theory/"
+          },
+        
+          {
+            id: 14,
+            title: "Quantum Logic Gates",
+            url: "/quantum30/quantum-logic-gates/"
+          },
+        
+          {
+            id: 15,
+            title: "Quantum State",
+            url: "/quantum30/quantum-state/"
+          },
+        
+          {
+            id: 16,
+            title: "Quantum tunnelling",
+            url: "/quantum30/quantum-tunnelling/"
+          },
+        
+          {
+            id: 17,
+            title: "Stern-Gerlach Experiment",
+            url: "/quantum30/stern-gerlach-experiment/"
+          },
+        
+          {
+            id: 18,
+            title: "computers are a fundamental feature of the universe",
+            url: "/quantum30/computers-are-a-fundamental-feature-of-the-universe/"
+          },
+        
+          {
+            id: 19,
+            title: "day 1",
+            url: "/quantum30/day-1/"
+          },
+        
+          {
+            id: 20,
+            title: "day 2",
+            url: "/quantum30/day-2/"
+          },
+        
+          {
+            id: 21,
+            title: "day 3",
+            url: "/quantum30/day-3/"
+          },
+        
+          {
+            id: 22,
+            title: "day 4",
+            url: "/quantum30/day-4/"
+          },
+        
+          {
+            id: 23,
+            title: "day 5",
+            url: "/quantum30/day-5/"
+          },
+        
+          {
+            id: 24,
+            title: "day 8",
+            url: "/quantum30/day-8/"
+          },
+        
+          {
+            id: 25,
+            title: "day 9",
+            url: "/quantum30/day-9/"
+          },
+        
+          {
+            id: 26,
+            title: "quantum30",
+            url: "/quantum30/index/"
+          },
+        
+          {
+            id: 27,
+            title: "neutrino",
+            url: "/quantum30/neutrino/"
+          },
+        
+          {
+            id: 28,
+            title: "qubit",
+            url: "/quantum30/qubit/"
+          },
+        
+          {
+            id: 29,
+            title: "what is a digital garden",
+            url: "/what-is-a-digital-garden/"
+          },
+        
+          {
+            id: 30,
+            title: "chess board",
+            url: "/writings/chess-board/"
+          },
+        
+          {
+            id: 31,
+            title: "hello shader",
+            url: "/writings/hello-shader/"
+          },
+        
+          {
+            id: 32,
+            title: "mondrian",
+            url: "/writings/mondrian/"
+          },
+        
+          {
+            id: 33,
+            title: "texture land",
+            url: "/writings/texture-land/"
+          },
+        
+      ],
+      links:  [
+        
+          {
+            source: 11,
+            target: 27,
+          },
+        
+          {
+            source: 13,
+            target: 9,
+          },
+        
+          {
+            source: 15,
+            target: 28,
+          },
+        
+          {
+            source: 19,
+            target: 7,
+          },
+        
+          {
+            source: 19,
+            target: 8,
+          },
+        
+          {
+            source: 20,
+            target: 12,
+          },
+        
+          {
+            source: 20,
+            target: 16,
+          },
+        
+          {
+            source: 20,
+            target: 10,
+          },
+        
+          {
+            source: 20,
+            target: 18,
+          },
+        
+          {
+            source: 20,
+            target: 28,
+          },
+        
+          {
+            source: 21,
+            target: 13,
+          },
+        
+          {
+            source: 21,
+            target: 27,
+          },
+        
+          {
+            source: 22,
+            target: 15,
+          },
+        
+          {
+            source: 22,
+            target: 14,
+          },
+        
+          {
+            source: 22,
+            target: 11,
+          },
+        
+          {
+            source: 23,
+            target: 17,
+          },
+        
+          {
+            source: 23,
+            target: 10,
+          },
+        
+          {
+            source: 24,
+            target: 14,
+          },
+        
+          {
+            source: 24,
+            target: 12,
+          },
+        
+          {
+            source: 25,
+            target: 16,
+          },
+        
+          {
+            source: 26,
+            target: 19,
+          },
+        
+          {
+            source: 26,
+            target: 20,
+          },
+        
+          {
+            source: 26,
+            target: 21,
+          },
+        
+          {
+            source: 26,
+            target: 22,
+          },
+        
+          {
+            source: 26,
+            target: 23,
+          },
+        
+          {
+            source: 26,
+            target: 24,
+          },
+        
+          {
+            source: 26,
+            target: 25,
+          },
+        
+          {
+            source: 27,
+            target: 11,
+          },
+        
+          {
+            source: 27,
+            target: 14,
+          },
+        
+          {
+            source: 29,
+            target: 30,
+          },
+        
+          {
+            source: 29,
+            target: 33,
+          },
+        
+          {
+            source: 29,
+            target: 32,
+          },
+        
+          {
+            source: 29,
+            target: 31,
+          },
+        
+      ],
+    };
+
+
+    let Graph;
+    function renderGraph(width, height) {
+
+        if (Graph) {
+            Graph
+                .width(width)
+                .height(height);
+
+            Graph.zoomToFit()
+            Graph.zoom(3)
+            return;
+        }
+
+        Graph = ForceGraph()(document.getElementById('link-graph'))
+            .width(width)
+            .height(height)
+            .nodeCanvasObject((node, ctx) => {
+                const numberOfLinks = (node.links && node.links.length) || 2;
+                const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
+                const nodeR = Math.min(7, Math.max((numberOfLinks + numberOfNeighbours) / 2, 2));
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
+                ctx.fillStyle = getCssVar("--text-accent");
+                ctx.fill();
+
+                const label = htmlDecode(node.title)
+                const fontSize = 3.5;
+                ctx.font = `${fontSize}px Sans-Serif`;
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                ctx.fillText(label, node.x, node.y + nodeR + 2);
+            })
+            .linkColor(() => getCssVar("--text-muted") || getCssVar("--text-normal"))
+            .graphData(gData)
+            .onNodeClick(node => {
+                window.location = node.url;
+            });
+
+            setTimeout(() => {
+                Graph.zoomToFit();
+                Graph.zoom(3);
+            }, 10);
+    }
+
+    renderGraph(window.innerWidth,window.innerHeight);
+</script>
   </body>
 </html>
