@@ -24,6 +24,83 @@ function extractLinks(content) {
     )];
 }
 
+function getGraphViewData(data) {
+    const notes = data.collections.note;
+
+    const nodes = notes.map((note, index) => {
+        return {
+            'title': note.data.page.fileSlug,
+            'id': index,
+            'url': note.url
+        }
+    })
+
+    let links = []
+    notes.forEach((note, index) => {
+
+        // links 
+        let counter = 1;
+        let uniqueLinks = new Set();
+        const outboundLinks = extractLinks(note.template.frontMatter.content);
+        let outbound = outboundLinks.map(fileslug => {
+            var outboundNote = notes.find(x => caselessCompare(x.data.page.filePathStem.replace("/notes/", ""), fileslug) || x.data.page.url == fileslug.split("#")[0]);
+            if (!outboundNote) {
+                return null;
+            }
+            
+            if (!uniqueLinks.has(outboundNote.url)) {
+                const node = nodes.find(x => x.title == outboundNote.data.page.fileSlug)
+                
+                uniqueLinks.add(outboundNote.url);
+                return {
+                  url: outboundNote.url,
+                  title: outboundNote.data.title || outboundNote.data.page.fileSlug,
+                  id: counter++,
+                  source: index,
+                  target: node.id,
+                };
+            } else {
+                return null;
+            }
+        }).filter(x => x);
+        
+        // const currentFileSlug = note.data.page.fileSlug
+        // const currentURL = note.data.page.url;
+
+        // let backlinks = [];
+        // let uniqueLinks = new Set();
+        // let counter = 1;
+
+        // for (const otherNote of notes) {
+        //     const noteContent = otherNote.template.frontMatter.content;
+        //     const backLinks = extractLinks(noteContent);
+
+        //     if (!uniqueLinks.has(otherNote.url) && backLinks.some(link => caselessCompare(link, currentFileSlug) ||
+        //     currentURL == link.split("#")[0])) {
+        //         let preview = noteContent.slice(0, 240);
+        //         backlinks.push({
+        //             url: otherNote.url,
+        //             title: otherNote.data.title || otherNote.data.page.fileSlug,
+        //             preview,
+        //             id: counter++
+        //         })
+        //         uniqueLinks.add(otherNote.url);
+        //     }
+        // }
+       
+        links.push(...outbound)
+        links.filter(id => id)
+
+    });
+
+    let gData = {
+        'nodes': nodes,
+        'links': links
+    }
+
+    return gData;
+}
+
 function getBacklinks(data) {
     const notes = data.collections.note;
     if (!notes) {
@@ -106,3 +183,4 @@ exports.getBacklinks = getBacklinks;
 exports.getOutboundLinks = getOutboundLinks;
 exports.caselessCompare = caselessCompare;
 exports.extractLinks = extractLinks;
+exports.getGraphViewData = getGraphViewData;

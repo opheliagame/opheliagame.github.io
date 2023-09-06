@@ -3,7 +3,7 @@ require("dotenv").config();
 const settings = require("../helpers/constants");
 
 const markdownIt = require("markdown-it");
-const { getBacklinks, getOutboundLinks } = require("../helpers/linkUtils");
+const { getBacklinks, getOutboundLinks, getGraphViewData } = require("../helpers/linkUtils");
 const { QuadTree, Rectangle, Point } = require('../helpers/quadtree')
 const { CSSGrid } = require('../helpers/cssgrid')
 const md = markdownIt({
@@ -14,8 +14,7 @@ const allSettings = settings.ALL_NOTE_SETTINGS;
 
 module.exports = {
     eleventyComputed: {
-        backlinks: (data) => getBacklinks(data),
-        outbound: (data) => getOutboundLinks(data, true),
+        graphViewData: (data) => getGraphViewData(data),
         settings: (data) => {
             const currentnote = data.collections.gardenEntry && data.collections.gardenEntry[0];
             if (currentnote && currentnote.data) {
