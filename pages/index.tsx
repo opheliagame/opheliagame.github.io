@@ -9,12 +9,11 @@ import { CMS_NAME } from '../lib/constants'
 import Post from '../interfaces/post'
 
 type Props = {
-  allPosts: Post[]
+  // allPosts: Post[]
 }
 
-export default function Index({ allPosts }: Props) {
-  const heroPost = allPosts[0]
-  const morePosts = allPosts.slice(1)
+export default function Index({}: Props) {
+
   return (
     <>
       <Layout>
@@ -23,7 +22,7 @@ export default function Index({ allPosts }: Props) {
         </Head>
         <Container>
           <Intro />
-          {heroPost && (
+          {/* {heroPost && (
             <HeroPost
               title={heroPost.title}
               coverImage={heroPost.coverImage}
@@ -33,24 +32,24 @@ export default function Index({ allPosts }: Props) {
               excerpt={heroPost.excerpt}
             />
           )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
         </Container>
       </Layout>
     </>
   )
 }
 
-export const getStaticProps = async () => {
-  const allPosts = getAllPosts([
-    'title',
-    'date',
-    'slug',
-    'author',
-    'coverImage',
-    'excerpt',
-  ])
+// export const getStaticProps = async () => {
+//   const allPosts = getAllPosts([
+//     'title',
+//     'date',
+//     'slug',
+//     'author',
+//     'coverImage',
+//     'excerpt',
+//   ])
 
-  return {
-    props: { allPosts },
-  }
-}
+//   return {
+//     props: { allPosts },
+//   }
+// }
