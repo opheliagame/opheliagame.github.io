@@ -7,6 +7,7 @@ import { getAllPosts } from '../lib/api'
 import Head from 'next/head'
 import Post from '../interfaces/post'
 import Link from 'next/link'
+import GenerativeGrid from '../components/generative-grid'
 
 type Props = {
   allPosts: Post[]
@@ -17,17 +18,7 @@ export default function Index({}: Props) {
   return (
     <>
       <Layout>
-        <Head>
-          <title>{`opheliagame`}</title>
-        </Head>
-        <Container>
-          <Intro />
-
-        <li className='list-none underline'>
-          <Link href="/concrete-poetry">concrete poems</Link>
-        </li>
-
-        </Container>
+        <GenerativeGrid />
       </Layout>
     </>
   )
