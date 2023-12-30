@@ -1,5 +1,5 @@
 
-class Point {
+export class Point {
   x: number
   y: number
 
@@ -9,7 +9,7 @@ class Point {
   }
 }
 
-class Rectangle {
+export class Rectangle {
   x: number
   y: number
   w: number
@@ -31,7 +31,7 @@ class Rectangle {
   }
 }
 
-class QuadTree{
+export class QuadTree{
   boundary: Rectangle
   capacity: number
   points: Array<Point>
@@ -142,7 +142,7 @@ class QuadTree{
   }
 }
 
-class CSSGrid {
+export class CSSGrid {
   qtree: QuadTree
   width: number
   height: number
@@ -207,42 +207,11 @@ class CSSGrid {
 
 }
 
-const GenerativeGrid = () => {
-  let quadTree = new QuadTree(new Rectangle(200, 200, 200, 200), 2)  
-  for (let i = 0; i < 10; i++) {
-    let p = new Point(Math.random() * 200 * 2, Math.random() * 200 * 2)
-    quadTree.insert(p)
-  }
-  let cssgrid = new CSSGrid(quadTree, 200*2, 200*2)
-  let cssgridAreaString = cssgrid.getGridAreaString()
-  let result = {
-    display: 'grid',
-    gridTemplateAreas: cssgridAreaString,
-    zIndex: -1,
-    width: '100vw',
-    height: '100vh',
-    position: 'absolute',
-    top: 0,
-    left: 0
-  }
-
-  let gridContent = [
-    {title: 'opheliagame', url: '/'},
-    {title: 'about', url: '/about'},
-    {title: 'thoughts', url: 'https://opheliagame-notes.netlify.app/'},
-    {title: 'concrete poetry', url: '/concrete-poetry'},
-    {title: 'instagram', url: 'https://www.instagram.com/ophelia.game/'},
-    {title: 'twitter', url: 'https://twitter.com/oopheliagame'},
-    {title: 'youtube', url: 'https://www.youtube.com/channel/UCPGhpghIHB7fX3xLtlNaRFg'},
-    {title: 'twitch', url: 'https://www.twitch.tv/opheliagame'}
-  ]
-
-  let colors =  ['#DB2B39', '#00A878', '#F3A712', '#3066BE', '#79ADDC']
+export default function GenerativeGrid({ cssgridAreaString, gridContent, colors })  {
   let gridAreas = 'abcdefghijklmnopqrstuvwxyz'
 
   return (
     <div 
-    className="index-grid" 
     style={{ display: 'grid', width: '100vw', height: '100vh', gridTemplateAreas: cssgridAreaString }}>
       {gridContent.map((cell, index) => {
         let rot = Math.floor(Math.random()*90)
@@ -258,11 +227,8 @@ const GenerativeGrid = () => {
             style={{backgroundColor: color, transform: `rotate(${rot}deg)`}}>{cell.title}</a>
         </div>
         )
-      })
-      }
+      })}
     </div>
   )
 
 }
-
-export default GenerativeGrid
