@@ -40,7 +40,7 @@ const Projects = ({ allProjects }: Props) => {
 }
 
 export const getStaticProps = async () => {
-  const allProjects = getAllProjects(['slug', 'title', 'content'])
+  const allProjects = getAllProjects(['slug', 'title', 'content', 'year'])
   return {
     props: { allProjects }
   }

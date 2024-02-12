@@ -8,7 +8,7 @@ export function getProjectSlugs() {
   return fs.readdirSync(projectsDirectory)
 }
 
-export function getProjectBySlug(slug: string, fields: string[] = []) {
+export function getProjectBySlug(slug: string, fields: string[] = ['year']) {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(projectsDirectory, `${realSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -43,7 +43,7 @@ export function getAllProjects(fields: string[] = []) {
   const projects = slugs
     .map((slug) => getProjectBySlug(slug, fields))
     // sort projects by date in descending order
-    .sort((project1, project2) => (project1.date > project2.date ? -1 : 1))
+    .sort((project1, project2) => (parseInt(project2.year) - parseInt(project1.year)))
 
   console.log(projects)
   return projects
