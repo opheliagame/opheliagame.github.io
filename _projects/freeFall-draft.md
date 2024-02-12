@@ -1,0 +1,76 @@
+---
+title: 'experiments with text'
+org: 'dra.ft'
+excerpt: ''
+date: '2024-02-12'
+
+---
+
+Besides many other things, [dra.ft](https://dra-ft.site/) is a collaborative space and community of artists, designers, technologists who explore and experiment with text and electronic literature. 
+
+In 2021, during the pandemic and the lockdowns, I became part of it for the [freefall future.text](https://docs.google.com/spreadsheets/d/1Uvt-RmdSVGIWz9FnhRDMFBSkPYpxP5oofYclxsoRs_k/edit?pli=1#gid=1118811960) exhibition. This was the time when I had just started to think of myself as an artist and someone creative. For better or for worse, I don't think I paid much attention to the fact that this was a real exhibition. I thought of myself more as a developer and someone who was there to help other artists with their projects. I did not think that I would have any of my own ideas, and whatever ideas I had seemed like toy ideas to me. 
+
+I don't remember a lot of the conversations that we had on Gathertown (because I do have quite a shitty memory) but what I do remember is people having faith in me and making me feel at ease and like I belong. I am forever grateful for that. 
+
+# d3(x)radia(x)rekhta 
+*you can tell that the project name is thought out haha*
+*[project link](https://d3-x-radia-x-rekhta.onrender.com/)*
+
+One of the beginnings of the thought process, was a sketch I made right after #genuary2021 when I had started exploring [d3](https://d3js.org/). During this time, my practice included sketching on p5js regularly. And so I would think about an idea for a sketch during the day, when taking breaks from work, during lunch and afterwards. In the evenings, I would sit down for a few hours to sketch in code. 
+
+I remember how this one came about. I was typing something in a search box and looked at the suggestions that were coming below. This was definitely not the first time that I was seeing this pattern, but suddenly it made sense to put this inside a graph in d3. 
+
+![screenshot of google](/assets/projects/freefall/screenshot.png)
+
+The relationships between the words and the sentences fitted well into the structure of a connected graph. By giving each word a weight based on how well connected it is, I could make a force directed graph that could then sit on a screen like a woobly toy responding to mouse interactions. During one of the conversations with Ambika, Agat and Nanditi, we realized that this was something we wanted to explore further for dra.ft. And so Agat and I started working on it together. 
+
+![d3 chai](/assets/projects/freefall/d3 chai.mp4)
+
+## Pad.ma
+
+Now that we had a structure, the next step was to figure out what we would put inside it. Ambika had previously worked with [pad.ma](https://pad.ma/) , contributing to making transcripts for some of the archival materials; and when I first saw it, I was immediately in love. I could not fathom how something like it could exist; I don't think I still do. Everytime I interacted with it, while just browsing, or later when trying to use their APIs, it made me think of how software can be beautiful, and wonder how it can exist outside capitalist boundaries of profit making. 
+
+We found The Radia Tapes through pad.ma, and thought it was quite interesting and funny at times, and we loved listening to it during the calls. The transcript is available as a [pdf](https://studio.camp/radiaSRT/print/out.pdf) online, (TODO: check who created the transcripts) maintained by the folks at [studio camp.](https://studio.camp/) 
+
+## Rekhta 
+
+After getting some results with pad.ma, the next challenge was to explore using the same process and technologies with a non-Latin source, and sharing a love for Urdu poetry we decided upon [Rekhta,](https://rekhta.org) a much loved corner of the internet for Hindi and Urdu readers. It was interesting to note here that by using some translation for filtering, we could use the same process. 
+
+![Process diagram for the three different sources](/assets/projects/freefall/d3-x-radia-x-rekhta.drawio (1) 1.png)
+
+
+Here are some poems / images that came out.
+![poem 1](/assets/projects/freefall/poem1.png)
+![poem 2](/assets/projects/freefall/poem2.png)
+![poem 3](/assets/projects/freefall/poem3.png)
+![poem 4](/assets/projects/freefall/poem.png)
+
+
+---
+# supercut(x)pad.ma
+*there is a pattern to my sad naming scheme here*
+
+![cut 1](/assets/projects/freefall/cut1.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Love and hugs for Ambika, Nanditi and Agat. 
+Thank you for calling me to draft at dra.ft 

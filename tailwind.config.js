@@ -19,6 +19,9 @@ module.exports = {
       lineHeight: {
         tight: 1.2,
       },
+      fontFamily: {
+        'display': ['Major Mono Display'],
+      },
       fontSize: {
         '5xl': '2.5rem',
         '6xl': '2.75rem',

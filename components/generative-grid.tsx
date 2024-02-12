@@ -1,3 +1,4 @@
+import { shuffleArray } from "../lib/utils"
 
 export class Point {
   x: number
@@ -24,14 +25,14 @@ export class Rectangle {
 
   contains(point) {
     return (
-      point.x >= this.x - this.w 
-      && point.x <= this.x + this.w 
-      && point.y >= this.y - this.h 
-      && point.y <= this.x + this.y )
+      point.x >= this.x - this.w
+      && point.x <= this.x + this.w
+      && point.y >= this.y - this.h
+      && point.y <= this.x + this.y)
   }
 }
 
-export class QuadTree{
+export class QuadTree {
   boundary: Rectangle
   capacity: number
   points: Array<Point>
@@ -57,13 +58,13 @@ export class QuadTree{
     let y = this.boundary.y
     let w = this.boundary.w
     let h = this.boundary.h
-    let tl = new Rectangle(x - w/2, y - h/2, w/2, h/2)
+    let tl = new Rectangle(x - w / 2, y - h / 2, w / 2, h / 2)
     this.topleft = new QuadTree(tl, this.capacity)
-    let tr = new Rectangle(x + w/2, y - h/2, w/2, h/2)
+    let tr = new Rectangle(x + w / 2, y - h / 2, w / 2, h / 2)
     this.topright = new QuadTree(tr, this.capacity)
-    let bl = new Rectangle(x - w/2, y + h/2, w/2, h/2)
+    let bl = new Rectangle(x - w / 2, y + h / 2, w / 2, h / 2)
     this.bottomleft = new QuadTree(bl, this.capacity)
-    let br = new Rectangle(x + w/2, y + h/2, w/2, h/2)
+    let br = new Rectangle(x + w / 2, y + h / 2, w / 2, h / 2)
     this.bottomright = new QuadTree(br, this.capacity)
     this.children = [this.topleft, this.topright, this.bottomleft, this.bottomright]
     this.divided = true
@@ -71,25 +72,25 @@ export class QuadTree{
 
   insert(point) {
 
-    if(!this.boundary.contains(point)) return false
+    if (!this.boundary.contains(point)) return false
 
-    if(this.points.length < this.capacity) {
+    if (this.points.length < this.capacity) {
       this.points.push(point)
       return true
     } else {
-      if(!this.divided) {
+      if (!this.divided) {
         this.subdivide()
       }
 
-      if(this.topleft.insert(point)) return true
-      if(this.topright.insert(point)) return true
-      if(this.bottomleft.insert(point)) return true
-      if(this.bottomright.insert(point)) return true
+      if (this.topleft.insert(point)) return true
+      if (this.topright.insert(point)) return true
+      if (this.bottomleft.insert(point)) return true
+      if (this.bottomright.insert(point)) return true
     }
   }
 
   getSmallestQuad() {
-    if(!this.children) {
+    if (!this.children) {
       return this
     }
 
@@ -97,16 +98,16 @@ export class QuadTree{
     let widths = options.map(c => c.boundary.w)
 
     let smallest = Math.min(...widths)
-    this.smallestQuad = options.filter(c => c.boundary.w ===  smallest)[0]
+    this.smallestQuad = options.filter(c => c.boundary.w === smallest)[0]
     return this.smallestQuad
   }
 
   getLeafNodes() {
-    if(!this.children) return []
+    if (!this.children) return []
 
     let leafnodes = []
     this.children.forEach(c => {
-      if(!c.children) leafnodes.push(c)
+      if (!c.children) leafnodes.push(c)
       let childLeaves = c.getLeafNodes()
       leafnodes.push(...childLeaves)
     })
@@ -119,19 +120,19 @@ export class QuadTree{
     let edge = grid.cellw
     let n = grid.rows
     let template = grid.template
-    if(!this.children) {
-      let x1 = root.boundary.w*2
+    if (!this.children) {
+      let x1 = root.boundary.w * 2
       let x2 = (this.boundary.x - this.boundary.w)
-      let xindex = Math.floor(n - (x1-x2)/(edge*2) )
+      let xindex = Math.floor(n - (x1 - x2) / (edge * 2))
 
-      let y1 = root.boundary.h*2
+      let y1 = root.boundary.h * 2
       let y2 = (this.boundary.y - this.boundary.h)
-      let yindex = Math.floor(n - (y1-y2)/(edge*2) )
+      let yindex = Math.floor(n - (y1 - y2) / (edge * 2))
 
-      let span = this.boundary.w/edge - 1
-      for(let i = 0; i <= span; i++) {
-        for(let j = 0; j <= span; j++) {
-          template[xindex+i][yindex+j] = alpha
+      let span = this.boundary.w / edge - 1
+      for (let i = 0; i <= span; i++) {
+        for (let j = 0; j <= span; j++) {
+          template[xindex + i][yindex + j] = alpha
         }
       }
       return
@@ -168,15 +169,15 @@ export class CSSGrid {
   }
 
   findRows() {
-    let rowHeight = this.qtree.getSmallestQuad().boundary.h*2
-    this.cellh = rowHeight/2
-    return this.height/rowHeight
+    let rowHeight = this.qtree.getSmallestQuad().boundary.h * 2
+    this.cellh = rowHeight / 2
+    return this.height / rowHeight
   }
 
   findCols() {
-    let colWidth = this.qtree.getSmallestQuad().boundary.w*2
-    this.cellw = colWidth/2
-    return this.width/colWidth
+    let colWidth = this.qtree.getSmallestQuad().boundary.w * 2
+    this.cellw = colWidth / 2
+    return this.width / colWidth
   }
 
   buildCSSTemplate() {
@@ -187,16 +188,16 @@ export class CSSGrid {
     this.gridIDs = new Array(this.nCells).fill(0).map((e, i) => chars[i])
     // let template = {}
     // leafNodes.forEach((e, i) => {
-      //   let letter = chars[i]
-      //   template[letter] = Math.pow(e.boundary.w/this.cellw, 2)
-      // });
+    //   let letter = chars[i]
+    //   template[letter] = Math.pow(e.boundary.w/this.cellw, 2)
+    // });
 
 
-      this.leafNodes.forEach((c, i) => {
-        c.getCSSTemplate(this, this.gridIDs[i])
-      })
-      console.log(this.gridIDs)
-    }
+    this.leafNodes.forEach((c, i) => {
+      c.getCSSTemplate(this, this.gridIDs[i])
+    })
+    console.log(this.gridIDs)
+  }
 
   getGridAreaString() {
     this.leafNodes = this.qtree.getLeafNodes()
@@ -207,25 +208,35 @@ export class CSSGrid {
 
 }
 
-export default function GenerativeGrid({ cssgridAreaString, gridContent, colors })  {
-  let gridAreas = 'abcdefghijklmnopqrstuvwxyz'
-
+function GenerativeGridItem({ title, url, style }) {
   return (
-    <div 
-    style={{ display: 'grid', width: '100vw', height: '100vh', gridTemplateAreas: cssgridAreaString }}>
-      {gridContent.map((cell, index) => {
-        let rot = Math.floor(Math.random()*90)
-        let color = colors[Math.floor(Math.random()*colors.length)]
+    <a href={url}
+      className="flex-none flex flex-row flex-wrap bg-white 
+      md:text-6xl text-4xl font-display border border-1 border-white
+      cursor-pointer" style={style}>
+        {/* <svg viewBox="0 0 100 100" className="w-full h-full">
+        <text x="0" y="0" className="text-3xl font-display">
+          {title.split('').map((l, index) => (<span key={index}>{l}</span>))}
+        </text>
+      </svg> */}
 
-        return (<div 
-        key={index}
-        className="flex items-center justify-center text-center text-xl lowercase" 
-        style={{gridArea: gridAreas[index]}}>
-          <a 
-            href={cell.url}
-            className="text-white rounded-full py-2 px-4" 
-            style={{backgroundColor: color, transform: `rotate(${rot}deg)`}}>{cell.title}</a>
-        </div>
+        {title.split('').map((l, index) => (<p key={index} className="flex-initial">{l}</p>))}
+      
+    </a>
+
+  )
+}
+
+export default function GenerativeGrid({ cssgridAreaString, gridContent, colors }) {
+  let gridAreas = shuffleArray('abcdefghijklmnopqrstuvwxyz'.substring(0, 10).split(''))
+
+  let color = colors[Math.floor(Math.random()*colors.length)]
+  return (
+    <div
+      style={{ display: 'grid', width: '100vw', height: '100vh', gridTemplateAreas: cssgridAreaString, backgroundColor: color }}>
+      {gridContent.map((cell, index) => {
+        return (
+          <GenerativeGridItem key={index} title={cell.title} url={cell.url} style={{gridArea: gridAreas[index]}} />
         )
       })}
     </div>

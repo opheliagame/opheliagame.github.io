@@ -1,6 +1,8 @@
 import Layout from '../components/layout'
 import GenerativeGrid, { CSSGrid, Point, QuadTree, Rectangle } from '../components/generative-grid'
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import { shuffleArray } from '../lib/utils'
 
 
 
@@ -10,7 +12,7 @@ export default function Index() {
 
   useEffect(()  => {
     let quadTree = new QuadTree(new Rectangle(200, 200, 200, 200), 2)  
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
       let p = new Point(Math.random() * 200 * 2, Math.random() * 200 * 2)
       quadTree.insert(p)
     }
@@ -25,15 +27,17 @@ export default function Index() {
       {title: 'instagram', url: 'https://www.instagram.com/ophelia.game/'},
       {title: 'twitter', url: 'https://twitter.com/oopheliagame'},
       {title: 'youtube', url: 'https://www.youtube.com/channel/UCPGhpghIHB7fX3xLtlNaRFg'},
-      {title: 'twitch', url: 'https://www.twitch.tv/opheliagame'}
+      {title: 'twitch', url: 'https://www.twitch.tv/opheliagame'},
+      {title: 'projects', url: '/projects'},
     ]
+    let shuffledGridContent = shuffleArray(gridContent)
   
     let colors =  ['#DB2B39', '#00A878', '#F3A712', '#3066BE', '#79ADDC']
   
     
     setData({
       'cssgridAreaString': cssgridAreaString, 
-      'gridContent': gridContent, 
+      'gridContent': shuffledGridContent, 
       'colors': colors
     })
 
