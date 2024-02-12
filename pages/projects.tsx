@@ -18,14 +18,14 @@ const Projects = ({ allProjects }: Props) => {
     <section>
       <Layout>
         <Container>
-          {/* <Header /> */}
+          <Header />
           <div className="container">
             {allProjects.map((project, index) => (
                 <Link href={'/projects/' + project.slug} key={index} className="flex justify-start relative">
-                  {/* <ProjectBackground> */}
+                  <ProjectBackground>
                     <ProjectTitle>{project.title}</ProjectTitle>
 
-                  {/* </ProjectBackground> */}
+                  </ProjectBackground>
 
                 </Link>
 
