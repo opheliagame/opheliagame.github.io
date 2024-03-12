@@ -34,7 +34,7 @@ const Meta = () => {
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <link rel="preconnect" href="https://fonts.googleapis.com"></link>
       <link rel="preconnect" href="https://fonts.gstatic.com"></link>
-      <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Major+Mono+Display&display=swap" rel="stylesheet"></link>
       
       <script>
         {/* window.mobileCheck = function() {

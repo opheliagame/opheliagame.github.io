@@ -21,6 +21,7 @@ module.exports = {
       },
       fontFamily: {
         'display': ['Major Mono Display'],
+        'sans': ['Inter'],
       },
       fontSize: {
         '5xl': '2.5rem',
