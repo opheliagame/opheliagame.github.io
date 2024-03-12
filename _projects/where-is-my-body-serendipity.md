@@ -28,11 +28,11 @@ And then Future Landing became physical and we descended upon a very lovely buil
 
 So you would say something, i.e. type something on the typewriter and see it on paper in front of you of course; and then the typewriter would respond to you from the archive. This back and forth could continue until you ran out of paper or patience at which point you could do as you wished with the paper sheets; take them back or leave them there for other people to read. 
 
-![picture showing type writer at SAF 2022](/assets/projects/wimb/wimb1.png)
+![picture showing type writer at SAF 2022](/assets/projects/wimb/wimb1.jpg)
 
-![where is my body at SAF 2022](/assets/projects/wimb/wimb2.png)
+![where is my body at SAF 2022](/assets/projects/wimb/wimb2.jpg)
 
-![where is my body at SAF 2022](/assets/projects/wimb/wimb3.png)
+![where is my body at SAF 2022](/assets/projects/wimb/wimb3.jpg)
 
 
 
