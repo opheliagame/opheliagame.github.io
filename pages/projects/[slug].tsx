@@ -8,9 +8,9 @@ import Layout from '../../components/layout'
 import { getProjectBySlug, getAllProjects } from '../../lib/api'
 import ProjectTitle from '../../components/project-title'
 import Head from 'next/head'
-import { CMS_NAME } from '../../lib/constants'
 import markdownToHtml from '../../lib/markdownToHtml'
 import type ProjectType from '../../interfaces/project'
+import { WEBSITE_NAME } from '../../lib/constants'
 
 type Props = {
   project: ProjectType
@@ -20,7 +20,7 @@ type Props = {
 
 export default function Project({ project, moreProjects, preview }: Props) {
   const router = useRouter()
-  const title = `${project.title} | Next.js Blog Example with ${CMS_NAME}`
+  const title = `${WEBSITE_NAME} | ${project.title}`
   if (!router.isFallback && !project?.slug) {
     return <ErrorPage statusCode={404} />
   }

@@ -9,6 +9,10 @@
   @apply my-6;
 }
 
+.markdown h1 {
+  @apply text-4xl mt-12 mb-4 leading-snug;
+}
+
 .markdown h2 {
   @apply text-3xl mt-12 mb-4 leading-snug;
 }
@@ -35,4 +39,8 @@
 
 .markdown a:nth-of-type(5n+1) {
   @apply decoration-[#3066BE];
+}
+
+.markdown blockquote {
+  @apply p-4 my-4 border-s-4 border-[#DB2B39] bg-gray-50 dark:border-[#F3A712] dark:bg-gray-800 italic;
 }

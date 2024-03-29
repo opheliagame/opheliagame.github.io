@@ -13,7 +13,8 @@ In 2021, during the pandemic and the lockdowns, I became part of it for the [fre
 I don't remember a lot of the conversations that we had on Gathertown (because I do have quite a shitty memory) but what I do remember is people having faith in me and making me feel at ease and like I belong. I am forever grateful for that. 
 
 # d3(x)radia(x)rekhta 
-*you can tell that the project name is thought out haha*
+<!-- *you can tell that the project name is thought out haha* -->
+
 *[project link](https://d3-x-radia-x-rekhta.onrender.com/)*
 
 > This project is an experiment with ways of arranging and reading text. Does text always have to flow in horizontal lines which are wrapped below each other? We tried to explore different ways of connecting words to each other, in order to look for non linear ways of reading and interpreting.
@@ -27,7 +28,7 @@ I remember how this one came about. I was typing something in a search box and l
 
 The relationships between the words and the sentences fitted well into the structure of a connected graph. By giving each word a weight based on how well connected it is, I could make a force directed graph that could then sit on a screen like a woobly toy responding to mouse interactions. During one of the conversations with Ambika, Agat and Nanditi, we realized that this was something we wanted to explore further for dra.ft. And so Agat and I started working on it together. 
 
-<video src='/assets/projects/freefall/d3-chai.mp4' />
+<video src='/assets/projects/freefall/d3-chai.mp4' controls></video>
 
 ## Pad.ma
 
@@ -56,7 +57,8 @@ Here are some poems / images that came out.
 
 ---
 # supercut(x)pad.ma
-*there is a pattern to my sad naming scheme here*
+<!-- *there is a pattern to my sad naming scheme here* -->
+
 *[project link](https://github.com/dra-ft/supercut-x-padma)*
 
 ![cut 1](/assets/projects/freefall/cut1.png)
@@ -73,13 +75,14 @@ I ended up making a command line program that creates a supercut from a query st
 Here are some cuts I made right after.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1wb4IkFdbUk?si=nKNLgPjMfsu6_N3X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
+<br></br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/px4tnAfKfa4?si=2sDBKz71ID5cOwT_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 This was a partial end of the explorations we did, and it was super fun! 
 
 Love and hugs for Ambika, Nanditi and Agat. 
+
 Thank you for calling me to draft at dra.ft <3 
 
 ### References 
@@ -87,5 +90,5 @@ Thank you for calling me to draft at dra.ft <3
 - [d3(x)radia(x)rekhta | source code](https://github.com/dra-ft/d3-radia-rekhta/) 
 - [supercut(x)padma | source code](https://github.com/dra-ft/supercut-x-padma)
 
-### Footnotes
+
  [^1]: I am currently working on transforming the command line tool into a website. 

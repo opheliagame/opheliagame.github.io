@@ -36,8 +36,7 @@ So you would say something, i.e. type something on the typewriter and see it on 
 
 
 
-## Footnotes 
 
-[^1] what is up with the title field of notion databases, like honestly not everything has a title notion!
-[^2] very tiny "game" 
-[^3] very much, I did not even own an Arduino at this point
+[^1]: what is up with the title field of notion databases, like honestly not everything has a title notion!
+[^2]: very tiny "game" 
+[^3]: very much, I did not even own an Arduino at this point

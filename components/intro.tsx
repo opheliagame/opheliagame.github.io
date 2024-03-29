@@ -1,4 +1,3 @@
-import { CMS_NAME } from '../lib/constants'
 import Header from './header'
 
 const Intro = () => {
