@@ -21,7 +21,7 @@ const Projects = ({ allProjects }: Props) => {
           <Header />
           <div className="container">
             {allProjects.map((project, index) => (
-                <Link href={'/projects/' + project.slug} key={index} className="flex justify-start relative">
+                <Link href={`/projects/${project.slug}`} key={index} className="flex justify-start relative">
                   <ProjectBackground>
                     <ProjectTitle>{project.title}</ProjectTitle>
 
