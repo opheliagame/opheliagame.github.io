@@ -9,6 +9,12 @@ const nextConfig = {
     path: '',
   },
   assetPrefix: undefined,
+  rewrites: async () => [
+    {
+      source: "/new-home",
+      destination: "/new-index.html",
+    },
+  ],
 };
 
 export default nextConfig;
