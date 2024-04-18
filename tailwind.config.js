@@ -20,6 +20,7 @@ module.exports = {
         tight: 1.2,
       },
       fontFamily: {
+        'sketch': ['Akshar'],
         'display': ['Major Mono Display'],
         'sans': ['Inter'],
       },
