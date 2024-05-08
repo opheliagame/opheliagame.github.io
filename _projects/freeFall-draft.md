@@ -74,9 +74,9 @@ I ended up making a command line program that creates a supercut from a query st
 
 Here are some cuts I made right after.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1wb4IkFdbUk?si=nKNLgPjMfsu6_N3X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/1wb4IkFdbUk?si=nKNLgPjMfsu6_N3X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <br></br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/px4tnAfKfa4?si=2sDBKz71ID5cOwT_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/px4tnAfKfa4?si=2sDBKz71ID5cOwT_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 This was a partial end of the explorations we did, and it was super fun! 

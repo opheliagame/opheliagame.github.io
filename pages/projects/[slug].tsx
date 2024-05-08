@@ -11,14 +11,15 @@ import Head from 'next/head'
 import markdownToHtml from '../../lib/markdownToHtml'
 import type ProjectType from '../../interfaces/project'
 import { WEBSITE_NAME } from '../../lib/constants'
+import SideNav from '../../components/side-nav'
 
 type Props = {
   project: ProjectType
-  moreProjects: ProjectType[]
   preview?: boolean
+  sideNavItems: ProjectType[]
 }
 
-export default function Project({ project, moreProjects, preview }: Props) {
+export default function Project({ project, preview, sideNavItems }: Props) {
   const router = useRouter()
   const title = `${WEBSITE_NAME} | ${project.title}`
   if (!router.isFallback && !project?.slug) {
@@ -27,7 +28,6 @@ export default function Project({ project, moreProjects, preview }: Props) {
   return (
     <Layout preview={preview}>
       <Container>
-        <Header />
         {router.isFallback ? (
           <ProjectTitle>Loading…</ProjectTitle>
         ) : (
@@ -36,12 +36,18 @@ export default function Project({ project, moreProjects, preview }: Props) {
               <Head>
                 <title>{title}</title>
               </Head>
-              <ProjectHeader
-                title={project.title}
-                coverImage={project.coverImage}
-                date={project.date}
-              />
-              <ProjectBody content={project.content} />
+              <Header />
+
+              <div className='md:grid md:grid-cols-article'>
+                <div className='hidden md:block'>
+                  <SideNav allItems={sideNavItems}></SideNav>
+                </div>
+
+                <div>
+                  <ProjectTitle>{project.title}</ProjectTitle>
+                  <ProjectBody content={project.content} />
+                </div>
+              </div>
             </article>
           </>
         )}
@@ -57,6 +63,7 @@ type Params = {
 }
 
 export async function getStaticProps({ params }: Params) {
+  const projects = getAllProjects(['slug', 'title'])
   const project = getProjectBySlug(params.slug, [
     'title',
     'date',
@@ -72,6 +79,7 @@ export async function getStaticProps({ params }: Params) {
         ...project,
         content,
       },
+      sideNavItems: projects
     },
   }
 }

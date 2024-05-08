@@ -1,57 +1,53 @@
 import Layout from '../components/layout'
-import GenerativeGrid, { CSSGrid, Point, QuadTree, Rectangle } from '../components/generative-grid'
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import { shuffleArray } from '../lib/utils'
+import { useEffect, useRef } from 'react'
+import paperFull from 'paper'
+import { drawPaperSketch, drawSVG } from '../lib/paperSketch'
+import SideNav from '../components/side-nav'
+import ProjectType from '../interfaces/project'
+import { getAllProjects } from '../lib/api'
 
+type Props = {
+  allItems: ProjectType[]
+}
 
+export default function Index({ allItems }: Props) {
+  const container = useRef(null)
 
-export default function Index() {
-
-  const [data, setData] = useState(null)
-
-  useEffect(()  => {
-    let quadTree = new QuadTree(new Rectangle(200, 200, 200, 200), 2)  
-    for (let i = 0; i < 12; i++) {
-      let p = new Point(Math.random() * 200 * 2, Math.random() * 200 * 2)
-      quadTree.insert(p)
+  useEffect(() => {
+    paperFull.setup('paper-canvas')
+    let svgString = drawPaperSketch()
+    if (container.current != null) {
+      container.current.appendChild(svgString)
     }
-    let cssgrid = new CSSGrid(quadTree, 200*2, 200*2)
-    let cssgridAreaString = cssgrid.getGridAreaString()
-  
-    let gridContent = [
-      {title: 'opheliagame', url: '/'},
-      {title: 'about', url: '/about'},
-      {title: 'thoughts', url: 'https://opheliagame-notes.netlify.app/'},
-      {title: 'concrete poetry', url: '/concrete-poetry'},
-      {title: 'instagram', url: 'https://www.instagram.com/ophelia.game/'},
-      {title: 'twitter', url: 'https://twitter.com/oopheliagame'},
-      {title: 'youtube', url: 'https://www.youtube.com/channel/UCPGhpghIHB7fX3xLtlNaRFg'},
-      {title: 'twitch', url: 'https://www.twitch.tv/opheliagame'},
-      {title: 'projects', url: '/projects'},
-    ]
-    let shuffledGridContent = shuffleArray(gridContent)
-  
-    let colors =  ['#DB2B39', '#00A878', '#F3A712', '#3066BE', '#79ADDC']
-  
-    
-    setData({
-      'cssgridAreaString': cssgridAreaString, 
-      'gridContent': shuffledGridContent, 
-      'colors': colors
-    })
+
+    drawSVG()
 
   }, [])
 
   return (
-    data ?
     <>
       <Layout>
-        <GenerativeGrid cssgridAreaString={data.cssgridAreaString} gridContent={data.gridContent} colors={data.colors} />
+        <div className='w-screen md:h-screen'>
+          <canvas id='paper-canvas' className='invisible absolute top-0 left-0 w-full h-screen'></canvas>
+
+          <div className='w-full h-full flex flex-col md:grid md:grid-cols-home'>
+            <div className='md:pt-8 md:px-8'>
+              <SideNav allItems={allItems}></SideNav>
+
+            </div>
+
+            <div ref={container} className=''>
+            </div>
+          </div>
+        </div>
       </Layout>
-    </> : 
-    <>
     </>
   )
 }
 
+export const getStaticProps = async () => {
+  const allItems = getAllProjects(['slug', 'title'])
+  return {
+    props: { allItems }
+  }
+}

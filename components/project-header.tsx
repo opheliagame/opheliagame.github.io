@@ -10,8 +10,6 @@ const ProjectHeader = ({ title, coverImage, date }: Props) => {
   return (
     <>
       <ProjectTitle>{title}</ProjectTitle>
-      
-      
     </>
   )
 }
