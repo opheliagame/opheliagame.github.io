@@ -4,8 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc",
-    "export": "next export"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@gsap/react": "^2.1.0",
