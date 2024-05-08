@@ -1,5 +1,5 @@
 
-
+// TODO obsolete file
 paper.install(window)
 window.onload = () => {
   // Setup directly from canvas id:
