@@ -5,6 +5,7 @@ import { drawPaperSketch, drawSVG } from '../lib/paperSketch'
 import SideNav from '../components/side-nav'
 import ProjectType from '../interfaces/project'
 import { getAllProjects } from '../lib/api'
+import { drawFabricSketch } from '../lib/fabricSketch'
 
 type Props = {
   allItems: ProjectType[]
@@ -14,13 +15,15 @@ export default function Index({ allItems }: Props) {
   const container = useRef(null)
 
   useEffect(() => {
-    paperFull.setup('paper-canvas')
-    let svgString = drawPaperSketch()
-    if (container.current != null) {
-      container.current.appendChild(svgString)
-    }
+    // paperFull.setup('paper-canvas')
+    // let svgString = drawPaperSketch()
+    // if (container.current != null) {
+    //   container.current.appendChild(svgString)
+    // }
 
-    drawSVG()
+    // drawSVG()
+
+    drawFabricSketch()
 
   }, [])
 
@@ -37,6 +40,7 @@ export default function Index({ allItems }: Props) {
             </div>
 
             <div ref={container} className=''>
+              <canvas id='myCanvas'></canvas>
             </div>
           </div>
         </div>
