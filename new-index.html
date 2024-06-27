@@ -5,28 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>opheliagame</title>
 
-  <script src="/js/paper-full.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Major+Mono+Display&family=Akshar:wght@300..700&display=swap" rel="stylesheet"></link>
 
-  <script src="/js/paper-sketch.js"></script>
+
+  <!-- <script src="/js/paper-full.min.js"></script> -->
+
+  <!-- <script src="/js/paper-sketch.js"></script> -->
+  <script src="/js/fabric.js"></script>
 
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
-      height: 100%;
-
+      width: 100vw;
+      height: 100vh;
     }
 
 
-    canvas {
+    canvas-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      visibility: hidden;
+      /* visibility: hidden; */
     }
+
+    /* canvas {
+      height: 100%;
+      width: 100%;
+    } */
 
     text {
       font-size: x-large;
@@ -35,7 +43,12 @@
   </style>
 </head>
 <body>
-  <canvas id="myCanvas"></canvas>
+  <!-- <div class="canvas-container"> -->
+    <canvas id="myCanvas"></canvas>
+
+  <!-- </div> -->
+
+  <script src="/js/fabric-sketch.js"></script>
 
 </body>
 </html>
