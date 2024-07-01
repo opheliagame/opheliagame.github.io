@@ -223,8 +223,8 @@ let height = 0
 
 function init() {
   const canvasContainer = document.querySelector('.canvas-container')
-  const canvasWidth = (canvasContainer.computedStyleMap().get('width') as CSSUnitValue).value
-  const canvasHeight = (canvasContainer.computedStyleMap().get('height') as CSSUnitValue).value
+  const canvasWidth = parseInt((canvasContainer as HTMLElement).style.width)
+  const canvasHeight = parseInt((canvasContainer as HTMLElement).style.height)
 
   width = canvasWidth
   height = canvasHeight
