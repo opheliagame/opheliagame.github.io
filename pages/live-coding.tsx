@@ -1,9 +1,36 @@
 import Container from "../components/container"
-import GenerativeGrid from "../components/generative-grid"
+import GenerativeGrid, { CSSGrid, Point, QuadTree, Rectangle } from "../components/generative-grid"
 import Header from "../components/header"
 import Layout from "../components/layout"
+import { mobileCheck } from "../lib/utils"
 
-const LiveCoding = () => {
+export default function LiveCoding (props) {
+  return (
+    <section>
+      <Layout>
+       
+        <GenerativeGrid cssgridAreaString={props.cssgridAreaString} gridContent={props.gridContent} colors={props.colors}/>
+
+        
+      </Layout>
+    </section>
+
+  )
+}
+
+
+export async function getStaticProps() {
+  let isMobile = mobileCheck()
+  let width = isMobile ? 50 : 200
+  let height = isMobile ? width * 2 : width
+  let quadTree = new QuadTree(new Rectangle(width, width, width, height), 2)  
+  for (let i = 0; i < 10; i++) {
+    let p = new Point(Math.random() * width * 2, Math.random() * height * 2)
+    quadTree.insert(p)
+  }
+  let cssgrid = new CSSGrid(quadTree, width*2, height*2)
+  let cssgridAreaString = cssgrid.getGridAreaString()
+
   const liveCodingPerformances = [
     {
       title: 'estuary jam with @khoparzi!', 
@@ -49,21 +76,16 @@ const LiveCoding = () => {
     },
   ]
 
-  return (
-    <section>
-      <Layout>
-       
-        <GenerativeGrid gridContent={liveCodingPerformances}/>
+  let colors =  ['#DB2B39', '#00A878', '#F3A712', '#3066BE', '#79ADDC']
 
-        
-      </Layout>
-    </section>
-
-
-  )
+  return {
+    props: {
+      'cssgridAreaString': cssgridAreaString, 
+      'gridContent': liveCodingPerformances,
+      'colors': colors
+    }
+  }
 }
-
-export default LiveCoding
 
 
 {/* <Header />

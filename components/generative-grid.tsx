@@ -229,8 +229,6 @@ function GenerativeGridItem({ item, style }) {
         <video className="w-full h-full object-cover" src={thumbnail} autoPlay muted loop></video>
         <div className="absolute bottom-0 left-0 flex flex-row flex-wrap align-center text-slate-100 text-sm">
           <p className="">{title}</p>
-          {/* <p></p> */}
-          {/* <p className="text-xs">{date}</p> */}
         </div>
       </div>
 
@@ -239,20 +237,7 @@ function GenerativeGridItem({ item, style }) {
   )
 }
 
-export default function GenerativeGrid({ gridContent }) {
-  let isMobile = mobileCheck()
-  let width = isMobile ? 50 : 200
-  let height = isMobile ? width * 2 : width
-  let quadTree = new QuadTree(new Rectangle(width, width, width, height), 2)  
-  for (let i = 0; i < 10; i++) {
-    let p = new Point(Math.random() * width * 2, Math.random() * height * 2)
-    quadTree.insert(p)
-  }
-  let cssgrid = new CSSGrid(quadTree, width*2, height*2)
-  let cssgridAreaString = cssgrid.getGridAreaString()
-
-
-  let colors =  ['#DB2B39', '#00A878', '#F3A712', '#3066BE', '#79ADDC']
+export default function GenerativeGrid({ cssgridAreaString, gridContent, colors }) {
 
   let gridAreas = shuffleArray('abcdefghijklmnopqrstuvwxyz'.substring(0, 10).split(''))
 
