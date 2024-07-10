@@ -47,7 +47,7 @@ export default function Index() {
     data ?
     <>
       <Layout>
-        <GenerativeGrid cssgridAreaString={data.cssgridAreaString} gridContent={data.gridContent} colors={data.colors} />
+        <GenerativeGrid gridContent={data.gridContent} />
       </Layout>
     </> : 
     <>
