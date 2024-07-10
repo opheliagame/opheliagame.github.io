@@ -1,4 +1,4 @@
-import { shuffleArray } from "../lib/utils"
+import { mobileCheck, shuffleArray } from "../lib/utils"
 
 export class Point {
   x: number
@@ -208,26 +208,52 @@ export class CSSGrid {
 
 }
 
-function GenerativeGridItem({ title, url, style }) {
+function GenerativeGridItem({ item, style }) {
+  const title = item.title ?? ''
+  const url = item.url ?? ''
+  const date = item.date ?? ''
+  const thumbnail = item.thumbnail ?? ''
+
   return (
     <a href={url}
-      className="flex-none flex flex-row flex-wrap bg-white 
-      md:text-6xl text-4xl font-display border border-1 border-white
-      cursor-pointer" style={style}>
+      className="relative flex-none flex flex-row flex-wrap bg-white cursor-pointer" style={style}>
         {/* <svg viewBox="0 0 100 100" className="w-full h-full">
         <text x="0" y="0" className="text-3xl font-display">
           {title.split('').map((l, index) => (<span key={index}>{l}</span>))}
         </text>
       </svg> */}
 
-        {title.split('').map((l, index) => (<p key={index} className="flex-initial">{l}</p>))}
+        {/* {title.split('').map((l, index) => (<p key={index} className="flex-initial">{l}</p>))} */}
       
+      <div className="absolute relative top-0 left-0 w-full h-full object-cover">
+        <video className="w-full h-full object-cover" src={thumbnail} autoPlay muted loop></video>
+        <div className="absolute bottom-0 left-0 flex flex-row flex-wrap align-center text-slate-100 text-sm">
+          <p className="">{title}</p>
+          {/* <p></p> */}
+          {/* <p className="text-xs">{date}</p> */}
+        </div>
+      </div>
+
     </a>
 
   )
 }
 
-export default function GenerativeGrid({ cssgridAreaString, gridContent, colors }) {
+export default function GenerativeGrid({ gridContent }) {
+  let isMobile = mobileCheck()
+  let width = isMobile ? 50 : 200
+  let height = isMobile ? width * 2 : width
+  let quadTree = new QuadTree(new Rectangle(width, width, width, height), 2)  
+  for (let i = 0; i < 10; i++) {
+    let p = new Point(Math.random() * width * 2, Math.random() * height * 2)
+    quadTree.insert(p)
+  }
+  let cssgrid = new CSSGrid(quadTree, width*2, height*2)
+  let cssgridAreaString = cssgrid.getGridAreaString()
+
+
+  let colors =  ['#DB2B39', '#00A878', '#F3A712', '#3066BE', '#79ADDC']
+
   let gridAreas = shuffleArray('abcdefghijklmnopqrstuvwxyz'.substring(0, 10).split(''))
 
   let color = colors[Math.floor(Math.random()*colors.length)]
@@ -236,7 +262,7 @@ export default function GenerativeGrid({ cssgridAreaString, gridContent, colors 
       style={{ display: 'grid', width: '100vw', height: '100vh', gridTemplateAreas: cssgridAreaString, backgroundColor: color }}>
       {gridContent.map((cell, index) => {
         return (
-          <GenerativeGridItem key={index} title={cell.title} url={cell.url} style={{gridArea: gridAreas[index]}} />
+          <GenerativeGridItem key={index} item={cell} style={{gridArea: gridAreas[index]}} />
         )
       })}
     </div>
