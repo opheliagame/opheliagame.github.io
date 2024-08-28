@@ -117,6 +117,7 @@ class Node extends FabricElement implements Particle {
   radius: number;
   fabricElement: fabric.Text;
   lines: Array<{ line: Line, top: boolean }>;
+  connectedNodes: Array<Node>;
 
   constructor(grid: Grid, canvas: fabric.Canvas, name: string) {
     super(canvas)
@@ -142,6 +143,7 @@ class Node extends FabricElement implements Particle {
     const text = new fabric.Text(name, {
       fontFamily: 'Mansalva',
       fontSize: isMobile ? 24 : 32,
+      fill: 'black',
       // fontWeight: isMobile ? 'light' : 'normal',
       originX: 'center',
       originY: 'center'
@@ -154,7 +156,10 @@ class Node extends FabricElement implements Particle {
     });
 
     this.fabricElement.hasControls = this.fabricElement.hasBorders = false;
+    this.fabricElement.on('mouseover', () => onNodeMouseOver(this))
+    this.fabricElement.on('mouseout', () => onNodeMouseOut(this))
     this.lines = [];
+    this.connectedNodes = [];
     (this.fabricElement as any).lines = [];
   }
 
@@ -192,6 +197,10 @@ class Node extends FabricElement implements Particle {
     (this.fabricElement as any).lines.push({ line, top });
   }
 
+  connectToNode(node: Node) {
+    this.connectedNodes.push(node)
+  }
+
   addToCanvas() {
     console.log(`adding node at x: ${this.pos.x} y: ${this.pos.y}`);
     this.canvas.add(this.fabricElement);
@@ -199,10 +208,12 @@ class Node extends FabricElement implements Particle {
 }
 
 class Line extends FabricElement {
+  name: String;
   fabricElement: fabric.Line;
 
-  constructor(canvas: fabric.Canvas, coords: [number, number, number, number]) {
+  constructor(name: String, canvas: fabric.Canvas, coords: [number, number, number, number]) {
     super(canvas)
+    this.name = name
     let isMobile = mobileCheck()
     this.fabricElement = new fabric.Line(coords, {
       fill: 'red',
@@ -220,6 +231,9 @@ class Line extends FabricElement {
 
 let width = 0
 let height = 0
+let nodes: Array<Node>
+let lines: Array<Line>
+let canvas
 
 function init() {
   const canvasContainer = document.querySelector('.canvas-container')
@@ -231,8 +245,64 @@ function init() {
   console.log("width ", width, "height ", height)
 }
 
+// node mouseover interaction 
+function onNodeMouseOver(node: Node) {
+
+  let isMobile = mobileCheck()
+  const otherThanCurrentNode = nodes.filter((n: Node) => n.name != node.name)
+  const otherThanConnectingNodes = otherThanCurrentNode.filter((n: Node) => !node.connectedNodes.some(cn => cn.name == n.name))
+  otherThanConnectingNodes.forEach(n => {
+    // set vs animate 
+    // n.fabricElement.item(0).set('fill', '#D5D5D5') #f5ebe0
+    n.fabricElement.item(0).animate('fontSize', isMobile ? 24/2 : 32/2, {
+      onChange: canvas.renderAll.bind(canvas)
+    })
+    // n.fabricElement.item(0).animate('fontWeight', 'light', {
+    //   onChange: canvas.renderAll.bind(canvas)
+    // })
+  })
+
+  const otherThanConnectingLines = lines.filter((l: Line) => !node.lines.some(cl => cl.line.name == l.name))
+  otherThanConnectingLines.forEach(l => {
+    // l.fabricElement.set('stroke', '#FF7276')
+    // l.fabricElement.set('strokeWidth', '1')
+    l.fabricElement.animate('strokeWidth', '1', {
+      onChange: canvas.renderAll.bind(canvas)
+    })
+  })
+
+}
+
+function onNodeMouseOut(node: Node) {
+
+  let isMobile = mobileCheck()
+  const otherThanCurrentNode = nodes.filter((n: Node) => n.name != node.name)
+  const otherThanConnectingNodes = otherThanCurrentNode.filter((n: Node) => !node.connectedNodes.some(cn => cn.name == n.name))
+
+  otherThanConnectingNodes.forEach(n => {
+    // n.fabricElement.item(0).set('fill', 'black')
+    n.fabricElement.item(0).animate('fontSize', isMobile ? 24 : 32, {
+      onChange: canvas.renderAll.bind(canvas)
+    })
+    // n.fabricElement.item(0).animate('fontWeight', 'normal', {
+    //   onChange: canvas.renderAll.bind(canvas)
+    // })
+  })
+
+  const otherThanConnectingLines = lines.filter((l: Line) => !node.lines.some(cl => cl.line.name == l.name))
+  otherThanConnectingLines.forEach(l => {
+    // l.fabricElement.set('stroke', 'red')
+    // l.fabricElement.set('strokeWidth', '3')
+    l.fabricElement.animate('strokeWidth', isMobile ? 3 : 5, {
+      onChange: canvas.renderAll.bind(canvas)
+    })
+  })
+
+}
+
+
 function drawFabricSketch() {
-  var canvas = new fabric.Canvas('myCanvas', { selection: false });
+  canvas = new fabric.Canvas('myCanvas', { selection: false });
   fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
 
   function resizeCanvas() {
@@ -249,9 +319,9 @@ function drawFabricSketch() {
   init()
   const grid = new Grid(width, height, 2*10)
   const uniqueCircles = new Set(mindMapData.connections.flat());
-  const nodes = Array.from(uniqueCircles).map(circle => new Node(grid, canvas, circle));
+  nodes = Array.from(uniqueCircles).map(circle => new Node(grid, canvas, circle));
   
-  const lines = mindMapData.connections.map(arr => {
+  lines = mindMapData.connections.map(arr => {
     const [a, b] = arr;
   
     const nodeA = nodes.find(n => n.name === a);
@@ -261,10 +331,13 @@ function drawFabricSketch() {
       throw new Error('Node not found');
     }
   
-    const line = new Line(canvas, [nodeA.pos.x, nodeA.pos.y, nodeB.pos.x, nodeB.pos.y]);
+    const line = new Line(`${nodeA.name}-${nodeB.name}`, canvas, [nodeA.pos.x, nodeA.pos.y, nodeB.pos.x, nodeB.pos.y]);
   
     nodeA.connectToLine(line, true);
     nodeB.connectToLine(line, false);
+
+    nodeA.connectToNode(nodeB)
+    nodeB.connectToNode(nodeA)
   
     return line;
   });
@@ -272,6 +345,7 @@ function drawFabricSketch() {
   lines.forEach(l => l.addToCanvas());
   nodes.forEach(n => n.addToCanvas());
   
+  // enable nodes and lines to move together 
   canvas.on('object:moving', function (e: fabric.IEvent<fabric.Object>) {
     const node = e.target as fabric.Text & { lines: Array<{ line: Line, top: boolean }> };
   
