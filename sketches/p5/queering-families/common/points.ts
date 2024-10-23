@@ -7,8 +7,8 @@ export function pattern1(v, res = 0.1) {
 //   return colors[floor(v * colors.length)];
 // }
 
-export function getStops(length) {
-  const randomValues = [];
+export function getStops(length: number) {
+  const randomValues: number[] = [];
 
   for (let i = 0; i < length; i++) {
     randomValues.push(Math.random());
@@ -18,7 +18,7 @@ export function getStops(length) {
 }
 
 function getRandomValues(n, vmin, vmax, sorted=false) {
-  let values = []
+  let values: number[] = []
   for(let i = 0; i < n; i++) {
     values.push(Math.random() * (vmax-vmin) + vmin)
   }
@@ -30,7 +30,7 @@ function getRandomPoints(n, xmin, xmax, ymin, ymax, xsorted=false, ysorted=false
   let xvalues = getRandomValues(n, xmin, xmax, xsorted) 
   let yvalues = getRandomValues(n, ymin, ymax, ysorted)
   
-  let points = []
+  let points: [number, number][] = []
   for(let i = 0; i < n; i++) {
     let x = xvalues[i]
     let y = yvalues[i]

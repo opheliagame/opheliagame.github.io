@@ -26,11 +26,11 @@ export const drawPaperSketch = (): string | SVGElement => {
 
 export const drawSVG = () => {
   let svgDiv = document.querySelector('svg')
-  svgDiv.setAttribute('width', '100%')
-  svgDiv.setAttribute('height', '100%')
+  svgDiv?.setAttribute('width', '100%')
+  svgDiv?.setAttribute('height', '100%')
   let gDiv = document.querySelector('g')
   let pathDiv = document.querySelector('path')
-  pathDiv.id = 'mypath'
+  if(pathDiv != null) pathDiv.id = 'mypath'
 
 
   let mainLinks = [
@@ -65,7 +65,7 @@ export const drawSVG = () => {
     textDiv.appendChild(textPathDiv)
 
     linkDiv.appendChild(textDiv)
-    svgDiv.appendChild(linkDiv)
+    svgDiv?.appendChild(linkDiv)
 
   }
 

@@ -12,6 +12,12 @@ export default function SideNav({ allItems }) {
             </Link>
           </li>
         ))}
+
+        <li className="pb-2">
+          <Link href={"/zines/qf"}>
+            Queering Families, a generative zine 
+          </Link>
+        </li>
       </ul>
     </div>
   );

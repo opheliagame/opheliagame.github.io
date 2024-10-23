@@ -8,7 +8,7 @@ import { shuffleArray } from '../lib/utils'
 
 export default function Index() {
 
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<{cssgridAreaString: string, gridContent: any[], colors: string[]} | null>(null)
 
   useEffect(()  => {
     let quadTree = new QuadTree(new Rectangle(200, 200, 200, 200), 2)  

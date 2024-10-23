@@ -105,7 +105,7 @@ export class QuadTree {
   getLeafNodes() {
     if (!this.children) return []
 
-    let leafnodes = []
+    let leafnodes: any[] = []
     this.children.forEach(c => {
       if (!c.children) leafnodes.push(c)
       let childLeaves = c.getLeafNodes()
