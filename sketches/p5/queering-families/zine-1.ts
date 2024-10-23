@@ -1,13 +1,3 @@
-// export default function sketch(p) {
-//   p.setup = function () {
-//     p.createCanvas(400, 400);
-//   };
-
-//   p.draw = function () {
-//     p.background(220);
-//   };
-// }
-
 import { Sketch } from "@p5-wrapper/react";
 import { Grid } from "./common/grid";
 import { spaceOut } from "./common/func";

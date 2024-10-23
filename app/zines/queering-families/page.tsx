@@ -139,7 +139,9 @@ export default function Zine() {
             make your own zine!
           </button>
 
-          <CoffeeButton />
+          <div className="block md:hidden">
+            <CoffeeButton />
+          </div>
         </div>
 
         <div className="hidden md:z-20 md:block md:absolute bottom-0 right-0 p-4">

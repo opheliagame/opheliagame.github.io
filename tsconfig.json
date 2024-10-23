@@ -34,5 +34,5 @@
     "**/*.tsx",
     "sketches/p5/queering-families/common/points.ts",
     ".next/types/**/*.ts"
-, "app/zines/qf/page3.js"  ]
+, "app/zines/queering-families/page3.js"  ]
 }
