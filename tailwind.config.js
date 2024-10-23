@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./components/**/*.tsx', './pages/**/*.tsx'],
+  content: ['./components/**/*.tsx', './pages/**/*.tsx', './app/**/*.tsx'],
   theme: {
     extend: {
       colors: {
@@ -20,9 +20,9 @@ module.exports = {
         tight: 1.2,
       },
       fontFamily: {
-        'sketch': ['Mansalva'],
-        'display': ['Major Mono Display'],
-        'sans': ['Inter'],
+        'sketch': ['var(--font-mansalva)', 'sans-serif'],
+        'display': ['var(--font-major-mono-display)'],
+        'sans': ['var(--font-inter)'],
       },
       fontSize: {
         '5xl': '2.5rem',

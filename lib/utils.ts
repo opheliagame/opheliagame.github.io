@@ -14,6 +14,24 @@ export function random(v) {
   return fract(Math.sin(v*100000.0));
 }
 
+export function seedRandom(seed) {
+  let m = 0x80000000; // 2**31
+  let a = 1103515245;
+  let c = 12345;
+  
+  seed = seed % m;
+
+  return function() {
+    seed = (a * seed + c) % m;
+    return seed / m;
+  };
+}
+
+export function pickRandom<T>(array: T[]) {
+  let index = Math.floor(Math.random() * array.length)
+  return array[index]
+}
+
 function fract(value) {
   return value - Math.floor(value);
 }
