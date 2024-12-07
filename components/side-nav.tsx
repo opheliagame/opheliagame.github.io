@@ -8,7 +8,7 @@ export default function SideNav({ allItems }) {
         {allItems.map((item, index) => (
           <li className="pb-2" key={index}>
             <Link href={`/projects/${item.slug}`}>
-              {item.title}
+              {item.slug}
             </Link>
           </li>
         ))}
