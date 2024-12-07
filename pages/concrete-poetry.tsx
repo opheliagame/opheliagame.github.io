@@ -11,23 +11,24 @@ type Props = {
 
 const Poems = ({allPoems}: Props) => {
   return (
-    <section>
-      <Layout>
-        <Container>
-        <Header />
-        {
-        allPoems.map((poem) => (
-          <li key={poem.slug} className="list-none">
-            <Link  href={'/poems/'+poem.slug} >{poem.title}</Link>
+    <div></div>
+  //   <section>
+  //     <Layout>
+  //       <Container>
+  //       <Header />
+  //       {
+  //       allPoems.map((poem) => (
+  //         <li key={poem.slug} className="list-none">
+  //           <Link  href={'/poems/'+poem.slug} >{poem.title}</Link>
 
-          </li>
-        ))}
-  </Container>
-      </Layout>
+  //         </li>
+  //       ))}
+  // </Container>
+  //     </Layout>
       
 
       
-    </section>
+  //   </section>
   )
 
 }

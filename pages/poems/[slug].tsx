@@ -61,7 +61,7 @@ type Props = {
 
 const PoemPage = ({poem}: Props) => {
   const router = useRouter()
-  const title = `${poem.title}`
+  // const title = `${poem.title}`
 
   if (!router.isFallback && !poem?.slug) {
     return <ErrorPage statusCode={404} />
