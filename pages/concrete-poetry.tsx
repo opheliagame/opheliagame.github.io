@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Poem from "../interfaces/poem";
-import { getAllPoems } from "../lib/api";
+// import { getAllPoems } from "../lib/api";
 import Layout from "../components/layout";
 import Container from "../components/container";
 import Header from "../components/header";
@@ -32,12 +32,12 @@ const Poems = ({allPoems}: Props) => {
 
 }
 
-export const getStaticProps = async () => {
-  const allPoems = getAllPoems()
+// export const getStaticProps = async () => {
+//   const allPoems = getAllPoems()
 
-  return {
-    props: {allPoems}
-  }
-}
+//   return {
+//     props: {allPoems}
+//   }
+// }
 
 export default Poems;
