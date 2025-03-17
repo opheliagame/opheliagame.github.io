@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Threejs Journey Project 1</title>
+    <title>opheliagame</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,24 +12,25 @@
       rel="stylesheet"
     />
 
-  
     <script type="importmap">
       {
         "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+          "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+          "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.webgpu.js",
+          "three/tsl": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.tsl.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/",
           "tsl-textures/": "https://cdn.jsdelivr.net/npm/tsl-textures@1.1.0/src/"
         }
       }
     </script>
-    <script type="module" crossorigin src="./assets/index-Bj3HCqtV.js"></script>
-        <link rel="stylesheet" crossorigin href="./style.css">
-
+    <script type="module" crossorigin src="./js/main.js"></script>
+    <link rel="stylesheet" crossorigin href="./style.css" />
   </head>
   <body>
     <canvas class="webgl"></canvas>
 
     <div class="media-container"></div>
 
-    <script src="./history.js"></script>
+    <script src="./js/utils/history.js"></script>
   </body>
 </html>
