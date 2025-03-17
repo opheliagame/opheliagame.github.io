@@ -12,14 +12,14 @@ class Scene2 extends THREE.Group {
     this.isLoaded = false;
     this.items = [
       { text: "opheliagame", link: "/" },
-      { text: "code", link: "/notes-garden" },
-      { text: "projects", link: "/notes-garden/projects" },
-      { text: "poems", link: "/notes-garden/poems" },
-      { text: "tools", link: "/notes-garden" },
-      { text: "community", link: "/notes-garden" },
-      // { text: "performance", link: "/notes-garden" },
-      { text: "archives", link: "/notes-garden" },
-      { text: "software", link: "/notes-garden" },
+      { text: "code", link: "/garden" },
+      { text: "projects", link: "/garden/projects" },
+      { text: "poems", link: "/garden/poems" },
+      { text: "tools", link: "/garden" },
+      { text: "community", link: "/garden" },
+      // { text: "performance", link: "/garden" },
+      { text: "archives", link: "/garden" },
+      { text: "software", link: "/garden" },
     ];
   }
 
