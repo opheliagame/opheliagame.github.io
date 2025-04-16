@@ -1,53 +1,50 @@
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: "Basteleur";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url("./Basteleur-Bold.ttf") format("woff2");
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   width: 100vw;
-  background-color: black;
-}
-
-.media-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-height: 100%;
-  overflow-y: auto;
-
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  grid-template-rows: auto;
-  gap: 16px;
-  padding: 16px;
-}
-
-img,
-video {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  border: whitesmoke solid 2px;
-  border-radius: 96px;
-  border-style: solid;
+  height: 100vh;
 }
 
 canvas {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+}
+
+main {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+
+  font-family: "Basteleur", monospace;
+  font-size: 12rem;
 }
 
-@media screen and (min-width:640px) {
-  .media-container {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.links-container {
+  display: none;
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  -webkit-text-stroke: 2px black;
+  text-stroke: 2px black;
 }
