@@ -67,3 +67,20 @@ a {
   -webkit-text-stroke: 2px black;
   text-stroke: 2px black;
 }
+
+/* paper.js styles */
+
+body,
+main {
+  height: 100vh;
+  overflow: scroll;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+textPath {
+  font-size: 32px;
+}
