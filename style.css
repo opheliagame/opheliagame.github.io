@@ -3,7 +3,7 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-  src: url("./Basteleur-Bold.ttf") format("woff2");
+  src: url("./static/Basteleur-Bold.ttf") format("woff2");
 }
 
 html,
@@ -40,7 +40,7 @@ main {
   min-height: 100vh;
 
   font-family: "Basteleur", monospace;
-  font-size: 12rem;
+  font-size: 8rem;
   -webkit-text-stroke: 2px white; /* Sets the stroke width and color */
   -webkit-text-stroke-color: white;
 }
@@ -63,9 +63,24 @@ main,
 
 a {
   text-decoration: none;
-  color: white;
-  -webkit-text-stroke: 2px black;
-  text-stroke: 2px black;
+  color: black;
+
+  border-right: 2px solid black;
+  padding-right: 2rem;
+}
+
+a.bg-img {
+  display: inline-block;
+  -webkit-text-stroke: none;
+  text-stroke: none;
+  width: 8rem;
+  height: 6rem;
+  padding-right: 2rem;
+  background-image: url(./static/icon.png);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 /* paper.js styles */
@@ -74,6 +89,10 @@ body,
 main {
   height: 100vh;
   overflow: scroll;
+}
+
+main {
+  padding-left: 0.8rem;
 }
 
 canvas {
